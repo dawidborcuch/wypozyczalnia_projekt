@@ -1,2 +1,33 @@
-<h1>Pogoda w Warszawie</h1>
-<pre *ngIf="weatherData">{{ weatherData | json }}</pre>
+<div *ngIf="weatherData">
+  <h1>Weather in Warsaw</h1>
+  <p>Date: {{ weatherData.date }}</p>
+  <p>Sunrise: {{ weatherData.sunrise }}</p>
+  <p>Sunset: {{ weatherData.sunset }}</p>
+
+  <h2>Day</h2>
+  <ul>
+    <li>Max temperature: {{ weatherData.day.temp_max }}</li>
+    <li>Min temperature: {{ weatherData.day.temp_min }}</li>
+    <li>Max felt temperature: {{ weatherData.day.felt_temp_max }}</li>
+    <li>Min felt temperature: {{ weatherData.day.felt_temp_min }}</li>
+    <li>Humidity: {{ weatherData.day.humidity }}</li>
+    <li>Pressure: {{ weatherData.day.pressure }}</li>
+    <li>Wind speed: {{ weatherData.day.wind_speed }}</li>
+    <li>Wind direction: {{ weatherData.day.wind_direction }}</li>
+  </ul>
+
+  <h2>Night</h2>
+  <ul>
+    <li>Max temperature: {{ weatherData.night.temp_max }}</li>
+    <li>Min temperature: {{ weatherData.night.temp_min }}</li>
+    <li>Max felt temperature: {{ weatherData.night.felt_temp_max }}</li>
+    <li>Min felt temperature: {{ weatherData.night.felt_temp_min }}</li>
+    <li>Snow precipitation: {{ weatherData.night.snow_precipitation }}</li>
+    <li>Wind speed: {{ weatherData.night.wind_speed }}</li>
+    <li>Wind direction: {{ weatherData.night.wind_direction }}</li>
+  </ul>
+</div>
+
+<div *ngIf="!weatherData">
+  Loading weather data...
+</div>
