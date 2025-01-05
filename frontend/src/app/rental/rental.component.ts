@@ -19,7 +19,7 @@ interface Machine {
 })
 export class RentalComponent implements OnInit {
   machines: Machine[] = [];
-  imageUrl: string = 'assets/images/1.png'; // Dodaj tę linię
+  imageUrl: string = 'assets/images/1.png';
 
   constructor(private http: HttpClient) {}
 
