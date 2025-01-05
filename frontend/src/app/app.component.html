@@ -1,2 +1,14 @@
-<app-main-site></app-main-site>
-<router-outlet></router-outlet>
+<header>
+  <nav>
+    <ul>
+      <li><a routerLink="/home" routerLinkActive="active">Strona główna</a></li>
+      <li><a routerLink="/about" routerLinkActive="active">O nas</a></li>
+      <li><a routerLink="/rental" routerLinkActive="active">Wynajem</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active">Kontakt</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

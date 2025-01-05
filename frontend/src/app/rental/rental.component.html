@@ -1,0 +1,17 @@
+<h2>Dostępne maszyny do wynajęcia</h2>
+
+<img [ngSrc]="imageUrl" width="300" height="200" alt="Maszyny do wynajęcia">
+
+<div *ngIf="machines.length > 0; else noMachines">
+  <ul>
+    <li *ngFor="let machine of machines">
+      <h3>{{ machine.name }}</h3>
+      <p><strong>Cena:</strong> {{ machine.price | currency:'PLN':'symbol':'1.2-2' }} / dzień</p>
+      <p>{{ machine.description }}</p>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noMachines>
+  <p>Aktualnie brak dostępnych maszyn do wynajęcia.</p>
+</ng-template>

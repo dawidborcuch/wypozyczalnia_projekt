@@ -1,42 +1,63 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-import requests
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 CORS(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///machines.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
-@app.route('/weather')
-def get_weather():
-    url = 'https://dobrapogoda24.pl/api/v1/weather/simple?city=warszawa&day=1&token=d21cbfc6141eaa3c1b71'
-    response = requests.get(url)
-    data = response.json()
+class Machine(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.String(255), nullable=False)
 
-    formatted_data = {
-        "date": data["date"],
-        "sunrise": data["sunrise"],
-        "sunset": data["sunset"],
-        "day": {
-            "temp_max": f"{data['day']['temp_max']}°C",
-            "temp_min": f"{data['day']['temp_min']}°C",
-            "felt_temp_max": f"{data['day']['temp_felt_max']}°C",
-            "felt_temp_min": f"{data['day']['temp_felt_min']}°C",
-            "humidity": f"{data['day']['humidity']}%",
-            "pressure": f"{data['day']['pressure']} hPa",
-            "wind_speed": f"{data['day']['wind_velocity']} km/h",
-            "wind_direction": data['day']['wind_direction']
-        },
-        "night": {
-            "temp_max": f"{data['night']['temp_max']}°C",
-            "temp_min": f"{data['night']['temp_min']}°C",
-            "felt_temp_max": f"{data['night']['temp_felt_max']}°C",
-            "felt_temp_min": f"{data['night']['temp_felt_min']}°C",
-            "snow_precipitation": f"{data['night']['precipitation_snow']} mm",
-            "wind_speed": f"{data['night']['wind_velocity']} km/h",
-            "wind_direction": data['night']['wind_direction']
-        }
-    }
+def init_db():
+    with app.app_context():
+        db.create_all()
+        if Machine.query.count() == 0:
+            db.session.add(Machine(name="Koparka", price=500.0, description="Koparka gąsienicowa do prac ziemnych"))
+            db.session.add(Machine(name="Walec", price=300.0, description="Walec drogowy do zagęszczania nawierzchni"))
+            db.session.add(Machine(name="Dźwig", price=1000.0, description="Dźwig wieżowy do prac budowlanych"))
+            db.session.commit()
 
-    return jsonify(formatted_data)
+@app.route('/rental')
+def rental():
+    machines = Machine.query.all()
+    machines_list = [
+        {
+            "id": machine.id,
+            "name": machine.name,
+            "price": machine.price,
+            "description": machine.description
+        } for machine in machines
+    ]
+    return jsonify(machines_list)
+
+@app.route('/home')
+def home():
+    return jsonify({
+        "title": "Strona główna",
+        "content": "Witamy na stronie głównej naszej wypożyczalni maszyn."
+    })
+
+@app.route('/about')
+def about():
+    return jsonify({
+        "title": "O nas",
+        "content": "Jesteśmy firmą specjalizującą się w wynajmie maszyn budowlanych, ogrodniczych i leśnych."
+    })
+
+@app.route('/contact')
+def contact():
+    return jsonify({
+        "title": "Kontakt",
+        "content": "Skontaktuj się z nami: tel. 123-456-789, email: biuro@wypozyczalnia-lochow.pl"
+    })
 
 if __name__ == '__main__':
+    with app.app_context():
+        init_db()
     app.run(debug=True)
