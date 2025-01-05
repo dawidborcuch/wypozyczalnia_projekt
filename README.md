@@ -1,0 +1,1 @@
+Strona wypożyczalni maszyn
