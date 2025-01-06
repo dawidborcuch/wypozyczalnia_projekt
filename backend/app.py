@@ -13,28 +13,63 @@ class Machine(db.Model):
     name = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
 
 def init_db():
     with app.app_context():
         db.create_all()
-        if Machine.query.count() == 0:
-            db.session.add(Machine(name="Koparka", price=500.0, description="Koparka gąsienicowa do prac ziemnych"))
-            db.session.add(Machine(name="Walec", price=300.0, description="Walec drogowy do zagęszczania nawierzchni"))
-            db.session.add(Machine(name="Dźwig", price=1000.0, description="Dźwig wieżowy do prac budowlanych"))
-            db.session.commit()
+        print("Baza danych została utworzona.")
 
 @app.route('/rental')
 def rental():
-    machines = Machine.query.all()
+    return jsonify({
+        "title": "Wynajem maszyn",
+        "content": "Wybierz kategorię maszyn, aby zobaczyć dostępne opcje."
+    })
+
+@app.route('/rental/all')
+def rental_all():
+    try:
+        machines = Machine.query.all()
+        print(f"Znaleziono {len(machines)} maszyn. Pierwsza to {machines[0]}")
+        machines_list = [
+            {
+                "id": machine.id,
+                "name": machine.name,
+                "price": machine.price,
+                "description": machine.description,
+                "category": machine.category
+            } for machine in machines
+        ]
+        return jsonify(machines_list)
+    except Exception as e:
+        print(f"Wystąpił błąd: {str(e)}")
+        return jsonify({"error": "Wystąpił błąd podczas pobierania danych"}), 500
+
+
+@app.route('/rental/<category>')
+def rental_category(category):
+    category_mapping = {
+        'construction': '1',
+        'garden': '2',
+        'trailers': '3'
+    }
+    db_category = category_mapping.get(category, category)
+
+    machines = Machine.query.filter_by(category=db_category).all()
+    print(f"Znaleziono {len(machines)} maszyn dla kategorii {category} (DB category: {db_category})")
     machines_list = [
         {
             "id": machine.id,
             "name": machine.name,
             "price": machine.price,
-            "description": machine.description
+            "description": machine.description,
+            "category": machine.category
         } for machine in machines
     ]
     return jsonify(machines_list)
+
+
 
 @app.route('/home')
 def home():

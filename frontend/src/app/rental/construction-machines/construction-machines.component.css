@@ -1,0 +1,52 @@
+.construction-machines {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.machine-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.machine-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 15px;
+  transition: box-shadow 0.3s ease;
+}
+
+.machine-item:hover {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.machine-name {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.machine-price {
+  font-size: 1.1em;
+  color: #e74c3c;
+  margin-bottom: 5px;
+}
+
+.machine-description {
+  color: #555;
+  line-height: 1.4;
+}
+
+.no-machines {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
+}

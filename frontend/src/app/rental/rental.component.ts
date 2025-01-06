@@ -1,36 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { NgOptimizedImage } from '@angular/common';
-
-interface Machine {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-}
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-rental',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, NgOptimizedImage],
-  templateUrl: './rental.component.html',
-  styleUrls: ['./rental.component.css']
+  imports: [RouterModule],
+  template: `
+    <nav class="subcategories">
+      <ul>
+        <li><a routerLink="construction" routerLinkActive="active">Maszyny budowlane</a></li>
+        <li><a routerLink="garden" routerLinkActive="active">Maszyny ogrodniczo-leśne</a></li>
+        <li><a routerLink="trailers" routerLinkActive="active">Przyczepy samochodowe</a></li>
+      </ul>
+    </nav>
+    <router-outlet></router-outlet>
+  `,
+  styles: [`
+    .subcategories {
+      background-color: #f0f0f0;
+      padding: 10px 0;
+    }
+
+    .subcategories ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .subcategories li {
+      margin: 0 15px;
+    }
+
+    .subcategories a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .subcategories a.active {
+      color: #007bff;
+    }
+  `]
 })
-export class RentalComponent implements OnInit {
-  machines: Machine[] = [];
-  imageUrl: string = 'assets/images/1.png';
-
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-    this.http.get<Machine[]>('http://localhost:5000/rental').subscribe(
-      (data) => {
-        this.machines = data;
-      },
-      (error) => {
-        console.error('Błąd podczas pobierania danych:', error);
-      }
-    );
-  }
-}
+export class RentalComponent {}
