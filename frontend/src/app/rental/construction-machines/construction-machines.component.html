@@ -1,15 +1,14 @@
-<div class="construction-machines">
-  <h2>Maszyny budowlane</h2>
-  <div *ngIf="machines.length > 0; else noMachines">
-    <ul class="machine-list">
-      <li *ngFor="let machine of machines" class="machine-item">
-        <h3 class="machine-name">{{ machine.name }}</h3>
-        <p class="machine-price"><strong>Cena:</strong> {{ machine.price | currency:'PLN':'symbol':'1.2-2' }} / dzień</p>
-        <p class="machine-description">{{ machine.description }}</p>
-      </li>
-    </ul>
-  </div>
-  <ng-template #noMachines>
-    <p class="no-machines">Brak dostępnych maszyn budowlanych.</p>
-  </ng-template>
+<h2>Maszyny budowlane</h2>
+<div *ngIf="this.machines.length > 0; else noMachinesTemplate">
+  <ul>
+    <li *ngFor="let machine of this.machines">
+      <h3>{{ machine.name }}</h3>
+      <p><strong>Cena:</strong> {{ machine.price | currency:'PLN':'symbol':'1.2-2' }} / dzień</p>
+      <p>{{ machine.description }}</p>
+    </li>
+  </ul>
 </div>
+<ng-template #noMachinesTemplate>
+  <p>{{ this.noMachinesMessage$ | async }}</p>
+</ng-template>
+<p>Status: {{ this.status }}</p>

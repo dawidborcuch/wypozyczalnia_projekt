@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { Observable, of } from 'rxjs';
+import { delay, catchError } from 'rxjs/operators';
 
 interface Machine {
   id: number;
@@ -13,7 +15,7 @@ interface Machine {
 @Component({
   selector: 'app-construction-machines',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, NgOptimizedImage],
+  imports: [CommonModule, HttpClientModule],
   template: `
     <h2>Maszyny budowlane</h2>
     <div *ngIf="machines.length > 0; else noMachines">
@@ -26,7 +28,7 @@ interface Machine {
       </ul>
     </div>
     <ng-template #noMachines>
-      <p>Brak dostępnych maszyn budowlanych.</p>
+      <p>{{ noMachinesMessage$ | async }}</p>
     </ng-template>
     <p>Status: {{ status }}</p>
   `,
@@ -35,21 +37,25 @@ interface Machine {
 export class ConstructionMachinesComponent implements OnInit {
   machines: Machine[] = [];
   status: string = 'Ładowanie...';
+  noMachinesMessage$: Observable<string> | undefined;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<Machine[]>('http://localhost:5000/rental/construction').subscribe(
+    this.http.get<Machine[]>('http://localhost:5000/rental/construction').pipe(
+      catchError(() => {
+        this.status = 'Błąd podczas ładowania danych';
+        return of([]);
+      })
+    ).subscribe(
       (data) => {
         console.log('Otrzymane dane:', data);
         this.machines = data;
         this.status = `Załadowano ${this.machines.length} maszyn`;
-      },
-      (error) => {
-        console.error('Błąd podczas pobierania danych:', error);
-        this.status = 'Błąd podczas ładowania danych';
+        if (this.machines.length === 0) {
+          this.noMachinesMessage$ = of('Brak dostępnych maszyn budowlanych').pipe(delay(2000));
+        }
       }
     );
   }
-
 }
