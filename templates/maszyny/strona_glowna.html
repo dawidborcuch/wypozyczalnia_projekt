@@ -1,0 +1,500 @@
+{% extends 'maszyny/base.html' %}
+{% load static %}
+
+{% block title %}Strona główna - Wypożyczalnia Maszyn{% endblock %}
+
+{% block content %}
+<style>
+    .logo-section {
+        text-align: center;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+    .logo-section img {
+        max-height: 150px;
+        width: auto;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        transition: transform 0.3s ease;
+    }
+    .logo-section img:hover {
+        transform: scale(1.05);
+    }
+
+    @media (min-width: 1200px) {
+        .logo-section img {
+            max-height: 200px;
+        }
+    }
+
+    .category-card {
+        transition: all 0.4s ease;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        position: relative;
+        height: 100%;
+    }
+    .category-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #007bff, #00bcd4);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+    .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    .category-card:hover::before {
+        transform: scaleX(1);
+    }
+    .category-card .card-body {
+        padding: 2.5rem;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .category-card .icon-wrapper {
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.4s ease;
+    }
+    .category-card:hover .icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .category-card .btn {
+        border-radius: 30px;
+        padding: 0.7rem 2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+    .category-card .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #007bff, #00bcd4);
+        z-index: -1;
+        transition: transform 0.4s ease;
+        transform: scaleX(0);
+        transform-origin: right;
+    }
+    .category-card .btn:hover::before {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+    .category-card .btn:hover {
+        color: white;
+        border-color: transparent;
+    }
+    .category-card .machine-count {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(0,0,0,0.1);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    .category-card .features-list {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+        font-size: 0.9rem;
+        flex-grow: 1;
+    }
+    .category-card .features-list li {
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+    .category-card .features-list li i {
+        color: #007bff;
+        margin-right: 0.5rem;
+        font-size: 0.8rem;
+    }
+    .carousel-item img {
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    .carousel-item:hover img {
+        transform: scale(1.02);
+    }
+    .cta-section {
+        padding: 5rem 0;
+        margin: 5rem 0;
+        border-radius: 20px;
+    }
+    .section-title {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 3rem;
+        text-align: center;
+        width: 100%;
+    }
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background: #007bff;
+        border-radius: 3px;
+    }
+    .carousel-caption {
+        background: rgba(0,0,0,0.7);
+        padding: 1rem;
+        border-radius: 10px;
+        bottom: 20px;
+    }
+    .carousel-container {
+        position: relative;
+        padding: 0 40px;
+        overflow: hidden;
+    }
+    .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease;
+        width: 100%;
+    }
+    .carousel-slide {
+        flex: 0 0 33.333%;
+        padding: 0 15px;
+        transition: transform 0.3s ease;
+    }
+    .carousel-slide:hover {
+        transform: scale(1.05);
+        z-index: 1;
+    }
+    .carousel-slide img {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .carousel-slide:hover img {
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .carousel-indicators {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px 0;
+        overflow: hidden;
+    }
+    .carousel-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ddd;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+    .carousel-indicator.active {
+        background-color: #FFD700;
+        transform: scale(1.2);
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+        transition: all 0.3s ease;
+    }
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        transform: translateY(-50%) scale(1.1);
+    }
+    .category-title {
+        margin-top: 0;
+        margin-bottom: 2rem;
+    }
+    .category-section {
+        position: relative;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, rgba(0,123,255,0.05) 0%, rgba(0,188,212,0.05) 100%);
+        border-radius: 20px;
+        margin-bottom: 4rem;
+    }
+    .category-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23007bff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        border-radius: 20px;
+        opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+            max-width: 100% !important;
+        }
+        
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+        
+        .col-md-4 {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+        .section-title {
+            margin-bottom: 2rem;
+            padding: 0 15px;
+        }
+        .section-title::after {
+            width: 40px;
+        }
+    }
+</style>
+
+<div class="container px-2">
+    <h2 class="text-center section-title category-title">Wybierz kategorię</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card category-card mb-4">
+                <div class="card-body text-center">
+                    <span class="machine-count">
+                        {% if budowlane_count == 0 %}
+                            0 maszyn
+                        {% elif budowlane_count == 1 %}
+                            1 maszyna
+                        {% elif budowlane_count >= 2 and budowlane_count <= 4 %}
+                                    {{ budowlane_count }} maszyny
+                                {% else %}
+                                    {{ budowlane_count }} maszyn
+                                {% endif %}
+                    </span>
+                    <div class="icon-wrapper">
+                        <i class="fas fa-truck-monster fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Maszyny budowlane</h5>
+                    <p class="card-text">Profesjonalny sprzęt budowlany do każdego projektu.</p>
+                    <ul class="features-list text-start">
+                        <li><i class="fas fa-check-circle"></i> Zagęszczarki i młoty</li>
+                        <li><i class="fas fa-check-circle"></i> Betoniarki i wibratory</li>
+                        <li><i class="fas fa-check-circle"></i> Otwornice i agregaty</li>
+                    </ul>
+                    <a href="{% url 'maszyny_budowlane' %}" class="btn btn-primary">Zobacz ofertę</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card category-card mb-4">
+                <div class="card-body text-center">
+                    <span class="machine-count">
+                        {% if ogrodnicze_count == 0 %}
+                            0 maszyn
+                        {% elif ogrodnicze_count == 1 %}
+                            1 maszyna
+                        {% elif ogrodnicze_count >= 2 and ogrodnicze_count <= 4 %}
+                                    {{ ogrodnicze_count }} maszyny
+                                {% else %}
+                                    {{ ogrodnicze_count }} maszyn
+                                {% endif %}
+                    </span>
+                    <div class="icon-wrapper">
+                        <i class="fas fa-leaf fa-2x text-success"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Maszyny ogrodnicze</h5>
+                    <p class="card-text">Sprzęt ogrodniczy do pielęgnacji Twojego ogrodu.</p>
+                    <ul class="features-list text-start">
+                        <li><i class="fas fa-check-circle"></i> Frezarki do pni i koparki łańcuchowe</li>
+                        <li><i class="fas fa-check-circle"></i> Pilarki i rozdrabniacze</li>
+                        <li><i class="fas fa-check-circle"></i> Wertykulatory i aeratory</li>
+                    </ul>
+                    <a href="{% url 'maszyny_ogrodnicze' %}" class="btn btn-primary">Zobacz ofertę</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card category-card mb-4">
+                <div class="card-body text-center">
+                    <span class="machine-count">
+                        {% if przyczepki_count == 0 %}
+                            0 maszyn
+                        {% elif przyczepki_count == 1 %}
+                            1 maszyna
+                        {% elif przyczepki_count >= 2 and przyczepki_count <= 4 %}
+                                    {{ przyczepki_count }} maszyny
+                                {% else %}
+                                    {{ przyczepki_count }} maszyn
+                                {% endif %}
+                    </span>
+                    <div class="icon-wrapper">
+                        <i class="fas fa-truck fa-2x text-info"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Przyczepki</h5>
+                    <p class="card-text">Przyczepki do transportu materiałów i sprzętu.</p>
+                    <ul class="features-list text-start">
+                        <li><i class="fas fa-check-circle"></i> Przyczepki samochodowe lekkie</li>
+                        <li><i class="fas fa-check-circle"></i> Przyczepki motocyklowe</li>
+                    </ul>
+                    <a href="{% url 'przyczepki' %}" class="btn btn-primary">Zobacz ofertę</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center section-title">Nasze maszyny i narzędzia</h2>
+            <div class="carousel-container">
+                <div class="carousel-track" style="display: flex; transition: transform 0.5s ease;">
+                    {% for maszyna in maszyny %}
+                        <div class="carousel-slide" style="flex: 0 0 33.333%; padding: 0 15px;">
+                            <a href="{% url 'maszyna_szczegoly' maszyna.id %}" style="text-decoration: none; color: inherit;">
+                                <img src="{{ maszyna.zdjecie.url }}" class="d-block w-100" alt="{{ maszyna.nazwa }}" style="height: 300px; object-fit: contain; border-radius: 10px; background-color: #f8f9fa;">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 2; border: none; color: #FFD700; padding: 15px; font-size: 24px;">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-control-next" type="button" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 2; border: none; color: #FFD700; padding: 15px; font-size: 24px;">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators">
+                    {% for i in "x"|rjust:num_indicators %}
+                        <div class="carousel-indicator {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section text-center">
+        <h2 class="mb-4 fw-bold">Potrzebujesz profesjonalnego sprzętu?</h2>
+        <p class="lead mb-4 fs-4">Skontaktuj się z nami, aby omówić szczegóły wynajmu</p>
+        <a href="{% url 'kontakt' %}" class="btn btn-primary btn-lg px-5 py-3">Kontakt</a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const track = document.querySelector('.carousel-track');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevButton = document.querySelector('.carousel-control-prev');
+    const nextButton = document.querySelector('.carousel-control-next');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    let currentIndex = 0;
+    const slideWidth = 33.333;
+    let isCarouselAnimating = false;
+
+    function updateSlidePosition() {
+        if (isCarouselAnimating) return;
+        isCarouselAnimating = true;
+        track.style.transition = 'transform 0.5s ease';
+        track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+        
+        // Aktualizuj wskaźniki
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === Math.floor(currentIndex / 3));
+        });
+
+        setTimeout(() => {
+            isCarouselAnimating = false;
+        }, 500);
+    }
+
+    function goToSlide(index) {
+        if (index < 0) {
+            currentIndex = slides.length - 3;
+        } else if (index > slides.length - 3) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
+        updateSlidePosition();
+    }
+
+    prevButton.addEventListener('click', () => {
+        goToSlide(currentIndex - 3);
+    });
+
+    nextButton.addEventListener('click', () => {
+        goToSlide(currentIndex + 3);
+    });
+
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentIndex = index * 3;
+            updateSlidePosition();
+        });
+    });
+
+    // Automatyczne przesuwanie
+    let autoplayInterval = setInterval(() => {
+        goToSlide(currentIndex + 3);
+    }, 3000);
+
+    // Zatrzymaj autoplay przy najechaniu myszką
+    track.addEventListener('mouseenter', () => {
+        clearInterval(autoplayInterval);
+    });
+
+    // Wznów autoplay po opuszczeniu myszką
+    track.addEventListener('mouseleave', () => {
+        autoplayInterval = setInterval(() => {
+            goToSlide(currentIndex + 3);
+        }, 3000);
+    });
+
+    // Obsługa dotyku dla urządzeń mobilnych
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+            // Przesunięcie w lewo
+            goToSlide(currentIndex + 3);
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+            // Przesunięcie w prawo
+            goToSlide(currentIndex - 3);
+        }
+    }
+});
+</script>
+{% endblock %} 

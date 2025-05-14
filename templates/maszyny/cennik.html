@@ -1,0 +1,203 @@
+{% extends 'maszyny/base.html' %}
+
+{% block title %}Cennik - Wypożyczalnia Maszyn{% endblock %}
+
+{% block content %}
+<style>
+    .price-section {
+        padding: 2rem 0;
+    }
+    
+    .price-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(5px);
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    
+    .price-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .price-header {
+        padding: 1.5rem;
+        border-radius: 15px 15px 0 0;
+        text-align: center;
+        position: relative;
+    }
+    
+    .price-header i {
+        font-size: 2.2rem;
+        color: var(--primary-color);
+        margin-bottom: 0.75rem;
+    }
+
+    .price-header h2 {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 1.6rem;
+    }
+
+    .price-table {
+        margin: 0;
+    }
+
+    .price-table thead th {
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 2px solid #dee2e6;
+        font-weight: 600;
+        color: var(--primary-color);
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .price-table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+    .price-table tbody tr:hover {
+        background: rgba(0,123,255,0.05);
+    }
+    
+    .price-table td {
+        padding: 0.75rem;
+        vertical-align: middle;
+        position: relative;
+        font-size: 1rem;
+    }
+
+    .price-table .price {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .price-note {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(5px);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-top: 2rem;
+        text-align: center;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .price-note p {
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .price-note p:last-child {
+        margin-bottom: 0;
+    }
+
+    .price-note i {
+        color: var(--primary-color);
+        margin-right: 0.5rem;
+    }
+</style>
+
+<h1 class="section-title">Cennik</h1>
+
+<div class="row justify-content-center g-2">
+    <div class="col-md-4">
+        <div class="price-card">
+            <div class="price-header">
+                <i class="fas fa-truck-monster"></i>
+                <h2>Maszyny budowlane</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table price-table">
+                    <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th class="text-end">Cena (zł/doba)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for maszyna in maszyny %}
+                            {% if maszyna.kategoria == 'budowlane' %}
+                            <tr>
+                                <td>{{ maszyna.nazwa }}</td>
+                                <td class="text-end price">{{ maszyna.cena }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="price-card">
+            <div class="price-header">
+                <i class="fas fa-leaf"></i>
+                <h2>Maszyny ogrodnicze</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table price-table">
+                    <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th class="text-end">Cena (zł/doba)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for maszyna in maszyny %}
+                            {% if maszyna.kategoria == 'ogrodnicze' %}
+                            <tr>
+                                <td>{{ maszyna.nazwa }}</td>
+                                <td class="text-end price">{{ maszyna.cena }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="price-card">
+            <div class="price-header">
+                <i class="fas fa-truck"></i>
+                <h2>Przyczepki</h2>
+            </div>
+            <div class="table-responsive">
+                <table class="table price-table">
+                    <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th class="text-end">Cena (zł/doba)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for maszyna in maszyny %}
+                            {% if maszyna.kategoria == 'przyczepki' %}
+                            <tr>
+                                <td>{{ maszyna.nazwa }}</td>
+                                <td class="text-end price">{{ maszyna.cena }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="price-note">
+    <p><i class="fas fa-info-circle"></i> Ceny podane są za dobę. Przy dłuższym wynajmie możliwa jest negocjacja cen.</p>
+    <p><i class="fas fa-phone"></i> W celu uzyskania szczegółowych informacji, prosimy o kontakt telefoniczny: 789 690 907</p>
+</div>
+{% endblock %} 

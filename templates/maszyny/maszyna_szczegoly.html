@@ -1,0 +1,35 @@
+{% extends 'maszyny/base.html' %}
+
+{% block title %}{{ maszyna.nazwa }} - Wypożyczalnia Maszyn{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="mb-4">{{ maszyna.nazwa }}</h1>
+            <div class="card shadow-lg border-0 mb-4">
+                <img src="{{ maszyna.zdjecie.url }}" class="card-img-top" alt="{{ maszyna.nazwa }}" style="max-height: 400px; object-fit: contain;">
+            </div>
+            <div class="card shadow-lg border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Opis</h5>
+                    <p class="card-text">{{ maszyna.opis }}</p>
+                    <p class="card-text"><strong>Cena: {{ maszyna.cena }} zł/doba</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-lg border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Kontakt</h5>
+                    <p class="card-text">Aby wynająć tę maszynę, skontaktuj się z nami:</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone"></i> Telefon: 789 690 907</li>
+                        <li><i class="fas fa-envelope"></i> Email: biuro@wypozyczalnia-lochow.pl</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

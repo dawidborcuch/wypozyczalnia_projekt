@@ -1,0 +1,644 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Wypożyczalnia Maszyn{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --accent-color: #FFD700;
+            --hover-color: #0056b3;
+            --nav-height: 70px;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            background: #fff;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 800px;
+            z-index: -1;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: top center;
+        }
+
+        body::before {
+            left: 0;
+            background-image: url("{% static 'maszyny/wrapper-slant-left.png' %}");
+        }
+
+        body::after {
+            right: 0;
+            background-image: url("{% static 'maszyny/wrapper-slant-right.png' %}");
+        }
+
+        @media (max-width: 1600px) {
+            body::before,
+            body::after {
+                width: 600px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            body::before,
+            body::after {
+                width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body::before,
+            body::after {
+                width: 300px;
+            }
+            body::before {
+                left: -100px;
+            }
+            body::after {
+                right: -100px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body::before,
+            body::after {
+                width: 300px;
+                background-position: top center;
+            }
+            body::before {
+                left: -50px;
+            }
+            body::after {
+                right: -50px;
+            }
+        }
+
+        .logo-section {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .logo-section img {
+            max-height: 150px;
+            width: auto;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-section img:hover {
+            transform: scale(1.05);
+        }
+
+        @media (min-width: 1200px) {
+            .logo-section img {
+                max-height: 200px;
+            }
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 2rem 0;
+            color: #000;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #000;
+            border-radius: 3px;
+        }
+
+        .navbar {
+            height: var(--nav-height);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            height: 60px;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .navbar-brand img {
+            height: 45px;
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 600;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.2rem;
+            color: var(--secondary-color) !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler:hover .navbar-toggler-icon {
+            transform: scale(1.1);
+        }
+
+        .navbar-collapse {
+            justify-content: center;
+        }
+
+        .navbar-nav {
+            margin: 0 auto;
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: rgba(255, 255, 255, 0.98);
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                margin-top: 1rem;
+            }
+
+            .navbar-nav {
+                margin: 0;
+            }
+
+            .nav-link {
+                padding: 0.8rem 1rem !important;
+                margin: 0.2rem 0;
+                border-radius: 5px;
+            }
+
+            .nav-link:hover {
+                background: rgba(0,123,255,0.1);
+            }
+
+            .nav-link::after {
+                display: none;
+            }
+        }
+
+        .main-content {
+            flex: 1;
+            padding-top: calc(var(--nav-height) + 1rem);
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 3rem 0;
+            margin-top: auto;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h5 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h5::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-color);
+        }
+
+        .footer-section p {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+
+        .footer-section p:hover {
+            transform: scale(1.05);
+            color: var(--primary-color);
+        }
+
+        .footer-section a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a i {
+            font-size: 1.2rem;
+            line-height: 1;
+            width: 1em;
+            text-align: center;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+            background: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-section h5::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .category-card {
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .machine-count {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .features-list li {
+            margin-bottom: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .features-list li i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .card-title {
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Style dla sekcji cennik */
+        .price-section {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .price-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .price-section h3 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+        }
+
+        .price-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .price-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .price-table th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .price-table th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        .price-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .price-table tr:hover td {
+            background: rgba(0,123,255,0.05);
+        }
+
+        .price-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .price-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .price-section {
+                padding: 1rem;
+            }
+
+            .price-table th,
+            .price-table td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'strona_glowna' %}">
+                <img src="{% static 'maszyny/hero-logo.png' %}" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'strona_glowna' %}">
+                            <i class="fas fa-home me-1"></i>Strona główna
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'maszyny_budowlane' in request.path %}active{% endif %}" href="{% url 'maszyny_budowlane' %}">
+                            <i class="fas fa-truck-monster me-1"></i>Maszyny budowlane
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'maszyny_ogrodnicze' in request.path %}active{% endif %}" href="{% url 'maszyny_ogrodnicze' %}">
+                            <i class="fas fa-leaf me-1"></i>Maszyny ogrodnicze
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'przyczepki' in request.path %}active{% endif %}" href="{% url 'przyczepki' %}">
+                            <i class="fas fa-truck me-1"></i>Przyczepki
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'cennik' in request.path %}active{% endif %}" href="{% url 'cennik' %}">
+                            <i class="fas fa-tags me-1"></i>Cennik
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'kontakt' in request.path %}active{% endif %}" href="{% url 'kontakt' %}">
+                            <i class="fas fa-envelope me-1"></i>Kontakt
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="logo-section">
+                <img src="{% static 'maszyny/hero-logo.png' %}" alt="Wypożyczalnia Maszyn" class="img-fluid">
+            </div>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>Kontakt</h5>
+                    <p><i class="fas fa-phone me-2"></i>+48 789 690 907</p>
+                    <p><i class="fas fa-envelope me-2"></i>biuro@wypozyczalnia-lochow.pl</p>
+                    <p><i class="fas fa-id-card me-2"></i>NIP: 123-116-77-81</p>
+                    <p><i class="fas fa-building me-2"></i>Mister SQL Dawid Borcuch</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>Filia Łochów: 07-130 Łochów, Jasiorówka 249A</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>Filia Radom: 26-600 Radom, ul. Cicha 2/4/165</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Godziny otwarcia</h5>
+                    <p>Poniedziałek - Piątek: 7:00 - 18:00</p>
+                    <p>Sobota: 8:00 - 18:00</p>
+                    <p>Niedziela: Po wcześniejszym kontakcie telefonicznym</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Obserwuj nas</h5>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/WypozyczalniaMaszynLochow" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Wypożyczalnia maszyn i narzędzi Łochów. Wszelkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Obsługa zmiany rozmiaru nawigacji przy scrollowaniu
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Obsługa aktywnej zakładki
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

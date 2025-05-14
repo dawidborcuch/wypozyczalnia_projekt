@@ -1,0 +1,241 @@
+{% extends 'maszyny/base.html' %}
+
+{% block title %}Kontakt - Wypożyczalnia Maszyn{% endblock %}
+
+{% block content %}
+<style>
+    .contact-section {
+        padding: 4rem 0;
+    }
+    
+    .contact-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .contact-info-item:hover {
+        background: rgba(0,123,255,0.05);
+    }
+    
+    .contact-info-item i {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-right: 1rem;
+        width: 40px;
+        text-align: center;
+    }
+    
+    .contact-info-item .info-content {
+        flex: 1;
+    }
+    
+    .contact-info-item .info-label {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.3rem;
+    }
+    
+    .contact-info-item .info-value {
+        color: var(--secondary-color);
+        margin: 0;
+    }
+    
+    .branch-info {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .branch-info h6 {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    .branch-info p {
+        margin-bottom: 0.5rem;
+    }
+    
+    .opening-hours {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 1.5rem;
+    }
+    
+    .opening-hours-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .opening-hours-item:last-child {
+        border-bottom: none;
+    }
+    
+    .opening-hours-item .day {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+    
+    .opening-hours-item .hours {
+        color: var(--secondary-color);
+    }
+    
+    .social-links {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+    
+    .social-links a {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .social-links a i {
+        font-size: 1.5rem;
+    }
+    
+    .social-links a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        color: white;
+        background: var(--primary-color);
+    }
+    
+    .map-container {
+        margin-top: 2rem;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .map-container iframe {
+        width: 100%;
+        height: 300px;
+        border: none;
+    }
+</style>
+
+<div class="contact-section">
+    <div class="container">
+        <h1 class="section-title">Kontakt</h1>
+        
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card contact-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Dane kontaktowe</h5>
+                        
+                        <div class="contact-info-item">
+                            <i class="fas fa-phone"></i>
+                            <div class="info-content">
+                                <div class="info-label">Telefon</div>
+                                <div class="info-value">789 690 907</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="info-content">
+                                <div class="info-label">Email</div>
+                                <div class="info-value">biuro@wypozyczalnia-lochow.pl</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <i class="fas fa-id-card"></i>
+                            <div class="info-content">
+                                <div class="info-label">NIP</div>
+                                <div class="info-value">123-116-77-81</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <i class="fas fa-building"></i>
+                            <div class="info-content">
+                                <div class="info-label">Firma</div>
+                                <div class="info-value">Mister SQL Dawid Borcuch</div>
+                            </div>
+                        </div>
+                        
+                        <div class="branch-info">
+                            <h6><i class="fas fa-map-marker-alt me-2"></i>Filia Łochów</h6>
+                            <p>07-130 Łochów</p>
+                            <p>Jasiorówka 249A</p>
+                        </div>
+                        
+                        <div class="branch-info">
+                            <h6><i class="fas fa-map-marker-alt me-2"></i>Filia Radom</h6>
+                            <p>26-600 Radom</p>
+                            <p>ul. Cicha 2/4/165</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card contact-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Godziny otwarcia</h5>
+                        
+                        <div class="opening-hours">
+                            <div class="opening-hours-item">
+                                <span class="day">Poniedziałek - Piątek</span>
+                                <span class="hours">7:00 - 18:00</span>
+                            </div>
+                            <div class="opening-hours-item">
+                                <span class="day">Sobota</span>
+                                <span class="hours">8:00 - 18:00</span>
+                            </div>
+                            <div class="opening-hours-item">
+                                <span class="day">Niedziela</span>
+                                <span class="hours">Po wcześniejszym kontakcie telefonicznym</span>
+                            </div>
+                        </div>
+                        
+                        <h5 class="card-title mt-4 mb-3">Media społecznościowe</h5>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/WypozyczalniaMaszynLochow" target="_blank" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </div>
+
+                        <h5 class="card-title mt-4 mb-3">Lokalizacja</h5>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2426.3074024110015!2d21.67764237701228!3d52.54596423430643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471f1d9761558625%3A0x68ae163c9b36d005!2sJasior%C3%B3wka%20249A%2C%2007-130%20Jasior%C3%B3wka!5e0!3m2!1spl!2spl!4v1747250086336!5m2!1spl!2spl" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
