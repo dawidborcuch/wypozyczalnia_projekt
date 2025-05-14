@@ -1,0 +1,32 @@
+{% extends 'maszyny/base.html' %}
+
+{% block title %}{{ tytul }} - Wypożyczalnia Maszyn{% endblock %}
+
+{% block content %}
+<h1 class="section-title">{{ tytul }}</h1>
+
+<div class="row">
+    {% for maszyna in maszyny %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if maszyna.zdjecie %}
+                <div style="height: 200px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
+                    <img src="{{ maszyna.zdjecie.url }}" class="card-img-top" alt="{{ maszyna.nazwa }}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ maszyna.nazwa }}</h5>
+                    <p class="card-text"><strong>Cena: {{ maszyna.cena }} zł/doba</strong></p>
+                    <div class="text-end">
+                        <a href="{% url 'maszyna_szczegoly' maszyna.id %}" class="btn btn-outline-primary">Szczegóły</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center">Brak dostępnych maszyn w tej kategorii.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 
