@@ -10,4 +10,5 @@ urlpatterns = [
     path('kontakt/', views.kontakt, name='kontakt'),
     path('o-nas/', views.o_nas, name='o_nas'),
     path('maszyna/<int:maszyna_id>/', views.maszyna_szczegoly, name='maszyna_szczegoly'),
+    path('wyszukaj/', views.wyszukaj_maszyny, name='wyszukaj_maszyny'),
 ] 

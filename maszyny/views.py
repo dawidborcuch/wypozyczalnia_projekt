@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 from .models import Maszyna
 
 def strona_glowna(request):
@@ -55,4 +56,17 @@ def maszyna_szczegoly(request, maszyna_id):
     maszyna = get_object_or_404(Maszyna, id=maszyna_id)
     return render(request, 'maszyny/maszyna_szczegoly.html', {
         'maszyna': maszyna
-    }) 
+    })
+
+def wyszukaj_maszyny(request):
+    query = request.GET.get('q', '')
+    if query:
+        maszyny = Maszyna.objects.filter(nazwa__icontains=query)[:5]
+        results = [{
+            'id': maszyna.id,
+            'nazwa': maszyna.nazwa,
+            'kategoria': maszyna.get_kategoria_display(),
+            'zdjecie': maszyna.zdjecie.url
+        } for maszyna in maszyny]
+        return JsonResponse({'results': results})
+    return JsonResponse({'results': []}) 
