@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.db.models import Q
 from .models import Maszyna
 
 def strona_glowna(request):
@@ -61,12 +62,40 @@ def maszyna_szczegoly(request, maszyna_id):
 def wyszukaj_maszyny(request):
     query = request.GET.get('q', '')
     if query:
-        maszyny = Maszyna.objects.filter(nazwa__icontains=query)[:5]
+        # Zamieniamy polskie znaki na ich odpowiedniki bez znaków diakrytycznych
+        polskie_znaki = {
+            'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n',
+            'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z',
+            'Ą': 'A', 'Ć': 'C', 'Ę': 'E', 'Ł': 'L', 'Ń': 'N',
+            'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z'
+        }
+        
+        # Tworzymy wersję zapytania bez polskich znaków
+        query_without_polish = query
+        for polski, bez_polskiego in polskie_znaki.items():
+            query_without_polish = query_without_polish.replace(polski, bez_polskiego)
+        
+        # Pobieramy wszystkie maszyny
+        maszyny = Maszyna.objects.all()
+        
+        # Filtrujemy maszyny, które pasują do zapytania (z polskimi znakami lub bez)
+        pasujace_maszyny = []
+        for maszyna in maszyny:
+            nazwa_bez_polskich = maszyna.nazwa
+            for polski, bez_polskiego in polskie_znaki.items():
+                nazwa_bez_polskich = nazwa_bez_polskich.replace(polski, bez_polskiego)
+            
+            if (query.lower() in maszyna.nazwa.lower() or 
+                query_without_polish.lower() in nazwa_bez_polskich.lower()):
+                pasujace_maszyny.append(maszyna)
+                if len(pasujace_maszyny) >= 5:
+                    break
+        
         results = [{
             'id': maszyna.id,
             'nazwa': maszyna.nazwa,
             'kategoria': maszyna.get_kategoria_display(),
             'zdjecie': maszyna.zdjecie.url
-        } for maszyna in maszyny]
+        } for maszyna in pasujace_maszyny]
         return JsonResponse({'results': results})
     return JsonResponse({'results': []}) 
