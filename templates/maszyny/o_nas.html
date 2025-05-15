@@ -3,23 +3,260 @@
 {% block title %}O nas - Wypożyczalnia Maszyn{% endblock %}
 
 {% block content %}
+<style>
+    .about-section {
+        padding: 4rem 0;
+        background: linear-gradient(135deg, rgba(0,123,255,0.05) 0%, rgba(0,188,212,0.05) 100%);
+        border-radius: 20px;
+        margin-bottom: 3rem;
+    }
+    
+    .feature-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #007bff 0%, #00bcd4 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 2rem;
+    }
+    
+    .team-member {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .team-member img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        object-fit: cover;
+        border: 5px solid white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .why-us-section {
+        background: linear-gradient(135deg, rgba(0,123,255,0.02) 0%, rgba(0,188,212,0.02) 100%);
+        padding: 3rem 0;
+        border-radius: 20px;
+        margin: 3rem 0;
+    }
+    
+    .why-us-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .why-us-item:hover {
+        transform: translateX(10px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    
+    .why-us-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #007bff 0%, #00bcd4 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+    }
+    
+    .why-us-content {
+        flex-grow: 1;
+    }
+    
+    .why-us-content h4 {
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+    
+    .why-us-content p {
+        margin-bottom: 0;
+        color: #666;
+    }
+    
+    @media (max-width: 768px) {
+        .why-us-item {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .why-us-icon {
+            margin: 0 auto 1rem;
+        }
+    }
+</style>
+
 <div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card shadow-lg border-0">
-                <div class="card-body p-5">
-                    <h1 class="text-center mb-5 display-4 fw-bold">O nas</h1>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2 class="text-center mb-4">Największa wypożyczalnia maszyn i narzędzi w powiecie węgrowskim</h2>
-                            
-                            <p>
-                                Wypożyczalnia maszyn i narzędzi oferuje wysokiej jakości sprzęt budowlany oraz ogrodniczy. Wychodzimy naprzeciw oczekiwaniom i słuchamy potrzeb naszych Klientów, aby poszerzać asortyment o pozycje szczególnie dla Was ważne. Wspieramy w naszym regionie Rodzinne Ogrody Działkowe, lokalnych inwestorów budowlanych oraz prywatnych klientów, którzy szukają sprzętu mogącego wspomóc prace zarówno na budowie, jak i w ogrodzie. Oferowane przez nas maszyny są zawsze perfekcyjnie przygotowane do kolejnych wyzwań. Zapraszamy serdecznie do sprawdzenia ich możliwości!
-                            </p>
+    <!-- Sekcja główna -->
+    <div class="about-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-4 fw-bold mb-4">O nas</h1>
+                    <p class="lead mb-5">
+                        Jesteśmy największą wypożyczalnią maszyn i narzędzi w powiecie węgrowskim, 
+                        oferującą profesjonalny sprzęt budowlany oraz ogrodniczy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nasze zalety -->
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3 class="text-center mb-3">Profesjonalny sprzęt</h3>
+                <p class="text-center">
+                    Wszystkie nasze maszyny są regularnie serwisowane i przygotowane do pracy. 
+                    Dbamy o każdy detal, aby zapewnić niezawodność i bezpieczeństwo.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3 class="text-center mb-3">Doświadczenie</h3>
+                <p class="text-center">
+                    Od lat wspieramy lokalnych przedsiębiorców i prywatnych klientów, 
+                    pomagając w realizacji ich projektów budowlanych i ogrodowych.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="text-center mb-3">Wsparcie klienta</h3>
+                <p class="text-center">
+                    Nasz zespół służy fachową pomocą w doborze odpowiedniego sprzętu 
+                    i doradztwem technicznym przez cały okres wynajmu.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dlaczego my? -->
+    <div class="why-us-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Dlaczego warto nas wybrać?</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="why-us-item">
+                        <div class="why-us-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="why-us-content">
+                            <h4>Elastyczne terminy</h4>
+                            <p>Dostosowujemy się do harmonogramu naszych klientów, oferując elastyczne terminy wynajmu i odbioru sprzętu.</p>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="why-us-item">
+                        <div class="why-us-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="why-us-content">
+                            <h4>Gwarancja jakości</h4>
+                            <p>Każda maszyna przechodzi szczegółową kontrolę przed wydaniem, zapewniając najwyższą jakość usług.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="why-us-item">
+                        <div class="why-us-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="why-us-content">
+                            <h4>Dostawa na miejsce</h4>
+                            <p>Oferujemy usługę dostawy i odbioru sprzętu bezpośrednio na miejsce realizacji prac.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="why-us-item">
+                        <div class="why-us-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="why-us-content">
+                            <h4>Wsparcie</h4>
+                            <p>Oferujemy kompleksową pomoc w doborze sprzętu, szkolenia z obsługi maszyn oraz wsparcie techniczne podczas realizacji prac.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Misja i wizja -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="feature-card">
+                <h3 class="text-center mb-4">Nasza misja</h3>
+                <p class="text-center">
+                    Dostarczamy profesjonalny sprzęt i narzędzia, które pomagają naszym klientom 
+                    w realizacji ich projektów. Dbamy o jakość, bezpieczeństwo i satysfakcję klienta.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="feature-card">
+                <h3 class="text-center mb-4">Nasza wizja</h3>
+                <p class="text-center">
+                    Dążymy do bycia liderem w branży wypożyczalni maszyn, stale rozwijając naszą ofertę 
+                    i podnosząc standardy obsługi klienta.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="feature-card">
+                <h3 class="mb-4">Dołącz do grona naszych zadowolonych klientów</h3>
+                <p class="mb-4">
+                    Sprawdź naszą ofertę i przekonaj się, dlaczego warto nam zaufać
+                </p>
+                <a href="{% url 'kontakt' %}" class="btn btn-primary btn-lg">Skontaktuj się z nami</a>
             </div>
         </div>
     </div>
