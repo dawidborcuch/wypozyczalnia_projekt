@@ -6,8 +6,6 @@
 <style>
     .about-section {
         padding: 4rem 0;
-        background: linear-gradient(135deg, rgba(0,123,255,0.05) 0%, rgba(0,188,212,0.05) 100%);
-        border-radius: 20px;
         margin-bottom: 3rem;
     }
     
@@ -55,9 +53,7 @@
     }
     
     .why-us-section {
-        background: linear-gradient(135deg, rgba(0,123,255,0.02) 0%, rgba(0,188,212,0.02) 100%);
         padding: 3rem 0;
-        border-radius: 20px;
         margin: 3rem 0;
     }
     
@@ -259,6 +255,12 @@
                 <a href="{% url 'kontakt' %}" class="btn btn-primary btn-lg">Skontaktuj się z nami</a>
             </div>
         </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <h3 class="mb-4">Potrzebujesz profesjonalnego sprzętu?</h3>
+        <p class="lead mb-4">Skontaktuj się z nami, aby omówić szczegóły wynajmu</p>
+        <a href="{% url 'kontakt' %}" class="btn btn-primary btn-lg">Kontakt</a>
     </div>
 </div>
 {% endblock %} 

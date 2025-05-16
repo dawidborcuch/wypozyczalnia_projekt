@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ wyszukiwanie z PL oraz bez PL znaków">
-      <change beforePath="$PROJECT_DIR$/templates/maszyny/o_nas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/maszyny/o_nas.html" afterDir="false" />
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ Favicon">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +100,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747331946800</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="+ sekcja 'o nas'">
+      <option name="closed" value="true" />
+      <created>1747332606454</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1747332606454</updated>
+    </task>
+    <task id="LOCAL-00008" summary="+ Favicon">
+      <option name="closed" value="true" />
+      <created>1747332867408</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1747332867408</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -118,6 +134,8 @@
     <MESSAGE value="Projekt uczelnia" />
     <MESSAGE value="+ wyszukiwarka maszyn" />
     <MESSAGE value="+ wyszukiwanie z PL oraz bez PL znaków" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ wyszukiwanie z PL oraz bez PL znaków" />
+    <MESSAGE value="+ sekcja 'o nas'" />
+    <MESSAGE value="+ Favicon" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ Favicon" />
   </component>
 </project>
