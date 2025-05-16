@@ -342,6 +342,12 @@
         .main-content {
             flex: 1;
             padding-top: calc(var(--nav-height) + 1rem);
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        .main-content.loaded {
+            opacity: 1;
         }
 
         footer {
@@ -607,10 +613,52 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* Style dla animacji ładowania */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loader-wrapper.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-logo {
+            max-height: 150px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
 <body>
+    <!-- Loader -->
+    <div class="loader-wrapper">
+        <img src="{% static 'maszyny/hero-logo.png' %}" alt="Wypożyczalnia Maszyn" class="loader-logo">
+    </div>
+
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{% url 'strona_glowna' %}">
@@ -681,7 +729,7 @@
                 </div>
                 <div class="footer-section">
                     <h5>Godziny otwarcia</h5>
-                    <p>Poniedziałek - Piątek: 7:00 - 18:00</p>
+                    <p>Poniedziałek - Piątek: 8:00 - 18:00</p>
                     <p>Sobota: 8:00 - 18:00</p>
                     <p>Niedziela: Po wcześniejszym kontakcie telefonicznym</p>
                 </div>
@@ -702,6 +750,25 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Obsługa animacji ładowania
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.querySelector('.loader-wrapper');
+            const mainContent = document.querySelector('.main-content');
+            
+            // Sprawdź czy jesteśmy na stronie głównej
+            if (window.location.pathname === '/' || window.location.pathname === '/strona-glowna/') {
+                // Ukryj loader i pokaż zawartość po 1 sekundzie
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                    mainContent.classList.add('loaded');
+                }, 1000);
+            } else {
+                // Na innych stronach od razu ukryj loader i pokaż zawartość
+                loader.style.display = 'none';
+                mainContent.classList.add('loaded');
+            }
+        });
+
         // Obsługa zmiany rozmiaru nawigacji przy scrollowaniu
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar');
