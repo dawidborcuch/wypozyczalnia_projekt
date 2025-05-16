@@ -62,7 +62,7 @@ def maszyna_szczegoly(request, maszyna_id):
 def wyszukaj_maszyny(request):
     query = request.GET.get('q', '')
     if query:
-        # Zamieniamy polskie znaki na ich odpowiedniki bez znaków diakrytycznych
+        # Zamieniam polskie znaki na ich odpowiedniki bez znaków diakrytycznych
         polskie_znaki = {
             'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n',
             'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z',
@@ -70,15 +70,15 @@ def wyszukaj_maszyny(request):
             'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z'
         }
         
-        # Tworzymy wersję zapytania bez polskich znaków
+        # Wersja zapytania bez polskich znaków
         query_without_polish = query
         for polski, bez_polskiego in polskie_znaki.items():
             query_without_polish = query_without_polish.replace(polski, bez_polskiego)
         
-        # Pobieramy wszystkie maszyny
+        # Pobieram wszystkie maszyny
         maszyny = Maszyna.objects.all()
         
-        # Filtrujemy maszyny, które pasują do zapytania (z polskimi znakami lub bez)
+        # Filtruję maszyny, które pasują do zapytania (z polskimi znakami lub bez)
         pasujace_maszyny = []
         for maszyna in maszyny:
             nazwa_bez_polskich = maszyna.nazwa
