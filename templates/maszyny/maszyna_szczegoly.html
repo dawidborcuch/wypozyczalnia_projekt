@@ -183,6 +183,31 @@
         height: 100%;
         border: 0;
     }
+
+    /* Animacje przy przewijaniu i ładowaniu sekcji */
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Responsywność dla urządzeń mobilnych */
+    @media (max-width: 768px) {
+        .card-img-top {
+            max-height: 300px;
+        }
+        .share-buttons {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .share-buttons .btn {
+            margin-bottom: 10px;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -205,6 +230,20 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        });
+
+        // Obsługa animacji przy przewijaniu
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
         });
     });
 </script>
