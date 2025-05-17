@@ -3,33 +3,209 @@
 {% block title %}{{ maszyna.nazwa }} - Wypożyczalnia Maszyn{% endblock %}
 
 {% block content %}
-<div class="container py-5">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-8">
-            <h1 class="mb-4">{{ maszyna.nazwa }}</h1>
-            <div class="card shadow-lg border-0 mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
                 <img src="{{ maszyna.zdjecie.url }}" class="card-img-top" alt="{{ maszyna.nazwa }}" style="max-height: 400px; object-fit: contain;">
             </div>
-            <div class="card shadow-lg border-0">
+            {% if maszyna.link_youtube %}
+            <div class="card shadow-lg mt-4">
                 <div class="card-body">
-                    <h5 class="card-title">Opis</h5>
-                    <p class="card-text">{{ maszyna.opis }}</p>
-                    <p class="card-text"><strong>Cena: <span style="color: var(--primary-color);">{{ maszyna.cena }} zł/doba</span></strong></p>
+                    <h5 class="card-title mb-3">Film prezentacyjny</h5>
+                    <div class="ratio ratio-16x9">
+                        <iframe src="{{ maszyna.get_youtube_embed_url }}" 
+                                title="YouTube video" 
+                                allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
+            {% endif %}
         </div>
-        <div class="col-md-4">
-            <div class="card shadow-lg border-0">
+        <div class="col-md-6">
+            <h1 class="mb-4">{{ maszyna.nazwa }}</h1>
+            <p class="lead">{{ maszyna.opis }}</p>
+            
+            <!-- Przyciski udostępniania -->
+            <div class="share-buttons mb-4">
+                <h5>Udostępnij:</h5>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                   class="btn btn-facebook me-2" 
+                   target="_blank"
+                   onclick="window.open(this.href, 'share-facebook', 'width=580,height=296'); return false;">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://twitter.com/intent/tweet?text={{ maszyna.nazwa }}&url={{ request.build_absolute_uri }}" 
+                   class="btn btn-twitter me-2" 
+                   target="_blank"
+                   onclick="window.open(this.href, 'share-twitter', 'width=580,height=296'); return false;">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ maszyna.nazwa }}" 
+                   class="btn btn-linkedin" 
+                   target="_blank"
+                   onclick="window.open(this.href, 'share-linkedin', 'width=580,height=296'); return false;">
+                    <i class="fab fa-linkedin-in"></i> LinkedIn
+                </a>
+            </div>
+            
+            <div class="mt-4">
+                <h4>Specyfikacja:</h4>
+                <ul class="list-unstyled">
+                    {% if maszyna.liczba_maszyn %}
+                    <li><i class="fas fa-truck text-primary me-2"></i>Dostępnych sztuk: {{ maszyna.liczba_maszyn }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="mt-4">
+                <h4>Cena:</h4>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-clock text-primary me-2 fa-2x"></i>
+                    <div>
+                        <span class="h3 text-primary mb-0">{{ maszyna.cena }} zł</span>
+                        <span class="text-muted ms-2">/ doba</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a href="{% if maszyna.kategoria == 'budowlane' %}{% url 'maszyny_budowlane' %}{% elif maszyna.kategoria == 'ogrodnicze' %}{% url 'maszyny_ogrodnicze' %}{% else %}{% url 'przyczepki' %}{% endif %}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Powrót do listy
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sekcja kontaktowa -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card shadow-lg">
                 <div class="card-body">
-                    <h5 class="card-title">Kontakt</h5>
-                    <p class="card-text">Aby wynająć tę maszynę, skontaktuj się z nami:</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-phone"></i> Telefon: 789 690 907</li>
-                        <li><i class="fas fa-envelope"></i> Email: biuro@wypozyczalnia-lochow.pl</li>
-                    </ul>
+                    <h4 class="card-title mb-4">Kontakt w sprawie wynajmu</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="fas fa-phone text-primary me-2"></i>
+                                    <strong>Telefon:</strong>
+                                    <a href="tel:789690907" class="text-decoration-none">789 690 907</a>
+                                </li>
+                                <li class="mb-3">
+                                    <i class="fas fa-envelope text-primary me-2"></i>
+                                    <strong>Email:</strong>
+                                    <a href="mailto:biuro@wypozyczalnia-lochow.pl" class="text-decoration-none">biuro@wypozyczalnia-lochow.pl</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">
+                                    <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                    <strong>Adres:</strong><br>
+                                    07-130 Łochów, Jasiorówka 249A
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Przycisk "Do góry" -->
+<button id="scrollToTop" class="btn btn-primary scroll-to-top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Style dla przycisków udostępniania */
+    .btn-facebook {
+        background-color: #3b5998;
+        color: white;
+    }
+    .btn-twitter {
+        background-color: #1da1f2;
+        color: white;
+    }
+    .btn-linkedin {
+        background-color: #0077b5;
+        color: white;
+    }
+    
+    /* Style dla przycisku "Do góry" */
+    .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        padding: 0;
+        line-height: 40px;
+        text-align: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .scroll-to-top.show {
+        display: block;
+        opacity: 1;
+    }
+    
+    /* Animacje */
+    .card {
+        transition: transform 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    /* Style dla wideo */
+    .ratio-16x9 {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+    }
+    
+    .ratio-16x9 iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Obsługa przycisku "Do góry"
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollToTopButton = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopButton.classList.add('show');
+            } else {
+                scrollToTopButton.classList.remove('show');
+            }
+        });
+        
+        scrollToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
 {% endblock %} 

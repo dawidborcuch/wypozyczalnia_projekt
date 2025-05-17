@@ -3,30 +3,70 @@
 {% block title %}{{ tytul }} - Wypożyczalnia Maszyn{% endblock %}
 
 {% block content %}
-<h1 class="section-title">{{ tytul }}</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">{{ tytul }}</h1>
+    
+    <!-- Sortowanie -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sortuj według
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="?sort=cena_asc">Cena (od najniższej)</a></li>
+                    <li><a class="dropdown-item" href="?sort=cena_desc">Cena (od najwyższej)</a></li>
+                    <li><a class="dropdown-item" href="?sort=nazwa_asc">Nazwa (A-Z)</a></li>
+                    <li><a class="dropdown-item" href="?sort=nazwa_desc">Nazwa (Z-A)</a></li>
+                    <li><a class="dropdown-item" href="?sort=-created_at">Najnowsze</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<div class="row">
-    {% for maszyna in maszyny %}
+    <div class="row">
+        {% for maszyna in maszyny %}
         <div class="col-md-4 mb-4">
-            <div class="card h-100">
+            <div class="card h-100 shadow-sm d-flex flex-column">
                 {% if maszyna.zdjecie %}
                 <div style="height: 200px; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
                     <img src="{{ maszyna.zdjecie.url }}" class="card-img-top" alt="{{ maszyna.nazwa }}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                 </div>
                 {% endif %}
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ maszyna.nazwa }}</h5>
-                    <p class="card-text"><strong>Cena: <span style="color: var(--primary-color);">{{ maszyna.cena }} zł/doba</span></strong></p>
-                    <div class="text-end">
-                        <a href="{% url 'maszyna_szczegoly' maszyna.id %}" class="btn btn-outline-primary">Szczegóły</a>
+                    <p class="card-text flex-grow-1">{{ maszyna.opis|truncatewords:20 }}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="h5 mb-0">{{ maszyna.cena }} zł / doba</span>
+                        <a href="{% url 'maszyna_szczegoly' maszyna.id %}" class="btn btn-primary">Szczegóły</a>
                     </div>
                 </div>
             </div>
         </div>
-    {% empty %}
-    <div class="col-12">
-        <p class="text-center">Brak dostępnych maszyn w tej kategorii.</p>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                Brak dostępnych maszyn w tej kategorii.
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card {
+        transition: transform 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .dropdown-item:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+</style>
 {% endblock %} 

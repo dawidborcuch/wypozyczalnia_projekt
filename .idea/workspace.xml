@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ cz2 oferty" />
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ zmiana koloru cen w kategoriach maszyn z czarnego na niebieski">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maszyny/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/maszyny/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maszyny/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/maszyny/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maszyny/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/maszyny/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maszyny/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/maszyny/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/maszyny/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/maszyny/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/maszyny/maszyna_szczegoly.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/maszyny/maszyna_szczegoly.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/maszyny/maszyny_lista.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/maszyny/maszyny_lista.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wypozyczalnia/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/wypozyczalnia/settings.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747511425532</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="+ zmiana koloru cen w kategoriach maszyn z czarnego na niebieski">
+      <option name="closed" value="true" />
+      <created>1747511747504</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1747511747504</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,6 +197,7 @@
     <MESSAGE value="+ dopieszczenie wyszukiwarki oraz głównego menu" />
     <MESSAGE value="+ cz1 oferty oraz poprawione sortowanie maszyn (z PL znakami)" />
     <MESSAGE value="+ cz2 oferty" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ cz2 oferty" />
+    <MESSAGE value="+ zmiana koloru cen w kategoriach maszyn z czarnego na niebieski" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ zmiana koloru cen w kategoriach maszyn z czarnego na niebieski" />
   </component>
 </project>

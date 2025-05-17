@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wypożyczalnia maszyn budowlanych i ogrodniczych w powiecie węgrowskim. Profesjonalny sprzęt do wynajęcia.">
+    <meta name="keywords" content="wypożyczalnia maszyn, maszyny budowlane, maszyny ogrodnicze, przyczepki, wynajem sprzętu">
+    <meta name="author" content="Wypożyczalnia Maszyn">
+    <meta name="robots" content="index, follow">
     <title>{% block title %}Wypożyczalnia Maszyn{% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static 'maszyny/hero-logo.png' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -351,6 +355,8 @@
             padding-top: calc(var(--nav-height) + 1rem);
             opacity: 0;
             transition: opacity 0.5s ease-in;
+            position: relative;
+            z-index: 1;
         }
 
         .main-content.loaded {
@@ -657,106 +663,275 @@
                 transform: scale(1);
             }
         }
+
+        /* Animacje przejść między stronami */
+        .page-transition {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsywność dla obrazów */
+        .responsive-img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Tooltips */
+        .tooltip-custom {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-custom .tooltip-text {
+            visibility: hidden;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px 10px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-custom:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Komunikaty o błędach */
+        .alert-custom {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            min-width: 300px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Responsywność dla urządzeń mobilnych */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .card {
+                margin-bottom: 1rem;
+            }
+
+            .breadcrumb-container {
+                margin: 1rem -15px;
+                border-radius: 0;
+            }
+        }
+
+        /* Lazy loading dla obrazów */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* Wyszukiwarka */
+        .search-container {
+            position: relative;
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .search-suggestions.show {
+            display: block;
+        }
+        
+        .suggestion-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .suggestion-item:hover {
+            background-color: #f8f9fa;
+        }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Loader -->
-    <div class="loader-wrapper">
-        <img src="{% static 'maszyny/hero-logo.png' %}" alt="Wypożyczalnia Maszyn" class="loader-logo">
-    </div>
-
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'strona_glowna' %}">
-                <img src="{% static 'maszyny/hero-logo.png' %}" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'maszyny_budowlane' in request.path %}active{% endif %}" href="{% url 'maszyny_budowlane' %}">
-                            <i class="fas fa-truck-monster me-1"></i>Maszyny budowlane
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'maszyny_ogrodnicze' in request.path %}active{% endif %}" href="{% url 'maszyny_ogrodnicze' %}">
-                            <i class="fas fa-leaf me-1"></i>Maszyny ogrodnicze
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'przyczepki' in request.path %}active{% endif %}" href="{% url 'przyczepki' %}">
-                            <i class="fas fa-truck me-1"></i>Przyczepki
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'cennik' in request.path %}active{% endif %}" href="{% url 'cennik' %}">
-                            <i class="fas fa-tags me-1"></i>Cennik
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if 'kontakt' in request.path %}active{% endif %}" href="{% url 'kontakt' %}">
-                            <i class="fas fa-envelope me-1"></i>Kontakt
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/o-nas/' %}active{% endif %}" href="{% url 'o_nas' %}">O nas</a>
-                    </li>
-                </ul>
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Szukaj maszyny..." id="searchInput">
-                    <div class="search-results" id="searchResults"></div>
-                </div>
-            </div>
+    <div class="page-transition">
+        <!-- Loader -->
+        <div class="loader-wrapper">
+            <img src="{% static 'maszyny/hero-logo.png' %}" alt="Wypożyczalnia Maszyn" class="loader-logo">
         </div>
-    </nav>
 
-    <div class="main-content">
-        <div class="container">
-            <div class="logo-section">
-                <img src="{% static 'maszyny/hero-logo.png' %}" alt="Wypożyczalnia Maszyn" class="img-fluid">
-            </div>
-        </div>
-        {% block content %}{% endblock %}
-    </div>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h5>Kontakt</h5>
-                    <p><i class="fas fa-phone me-2"></i>+48 789 690 907</p>
-                    <p><i class="fas fa-envelope me-2"></i>biuro@wypozyczalnia-lochow.pl</p>
-                    <p><i class="fas fa-id-card me-2"></i>NIP: 123-116-77-81</p>
-                    <p><i class="fas fa-building me-2"></i>Mister SQL Dawid Borcuch</p>
-                    <p><i class="fas fa-map-marker-alt me-2"></i>Filia Łochów: 07-130 Łochów, Jasiorówka 249A</p>
-                    <p><i class="fas fa-map-marker-alt me-2"></i>Siedziba Radom: 26-600 Radom, ul. Cicha 2/4/165</p>
-                </div>
-                <div class="footer-section">
-                    <h5>Godziny otwarcia</h5>
-                    <p>Poniedziałek - Piątek: 8:00 - 18:00</p>
-                    <p>Sobota: 8:00 - 18:00</p>
-                    <p>Niedziela: Po wcześniejszym kontakcie telefonicznym</p>
-                </div>
-                <div class="footer-section">
-                    <h5>Obserwuj nas</h5>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/WypozyczalniaMaszynLochow" target="_blank" title="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'maszyny/hero-logo.png' %}" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'maszyny_budowlane' in request.path %}active{% endif %}" href="{% url 'maszyny_budowlane' %}">
+                                <i class="fas fa-truck-monster me-1"></i>Maszyny budowlane
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'maszyny_ogrodnicze' in request.path %}active{% endif %}" href="{% url 'maszyny_ogrodnicze' %}">
+                                <i class="fas fa-leaf me-1"></i>Maszyny ogrodnicze
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'przyczepki' in request.path %}active{% endif %}" href="{% url 'przyczepki' %}">
+                                <i class="fas fa-truck me-1"></i>Przyczepki
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'cennik' in request.path %}active{% endif %}" href="{% url 'cennik' %}">
+                                <i class="fas fa-tags me-1"></i>Cennik
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'kontakt' in request.path %}active{% endif %}" href="{% url 'kontakt' %}">
+                                <i class="fas fa-envelope me-1"></i>Kontakt
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/o-nas/' %}active{% endif %}" href="{% url 'o_nas' %}">O nas</a>
+                        </li>
+                    </ul>
+                    <div class="search-container">
+                        <form id="searchForm" class="search-form" method="get" action="{% url 'wyszukaj' %}">
+                            <div class="input-group">
+                                <input type="text" 
+                                       id="searchInput" 
+                                       name="q"
+                                       class="form-control" 
+                                       placeholder="Wyszukaj maszynę..." 
+                                       autocomplete="off"
+                                       aria-label="Wyszukaj maszynę">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div id="searchResults" class="search-results"></div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Wypożyczalnia maszyn i narzędzi Łochów. Wszelkie prawa zastrzeżone.</p>
+        </nav>
+
+        <div class="main-content">
+            <div class="container">
+                <div class="logo-section">
+                    <img src="{% static 'maszyny/hero-logo.png' %}" alt="Wypożyczalnia Maszyn" class="img-fluid">
+                </div>
             </div>
+            {% block content %}{% endblock %}
         </div>
-    </footer>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h5>Kontakt</h5>
+                        <p><i class="fas fa-phone me-2"></i>+48 789 690 907</p>
+                        <p><i class="fas fa-envelope me-2"></i>biuro@wypozyczalnia-lochow.pl</p>
+                        <p><i class="fas fa-id-card me-2"></i>NIP: 123-116-77-81</p>
+                        <p><i class="fas fa-building me-2"></i>Mister SQL Dawid Borcuch</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>Filia Łochów: 07-130 Łochów, Jasiorówka 249A</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>Siedziba Radom: 26-600 Radom, ul. Cicha 2/4/165</p>
+                    </div>
+                    <div class="footer-section">
+                        <h5>Godziny otwarcia</h5>
+                        <p>Poniedziałek - Piątek: 8:00 - 18:00</p>
+                        <p>Sobota: 8:00 - 18:00</p>
+                        <p>Niedziela: Po wcześniejszym kontakcie telefonicznym</p>
+                    </div>
+                    <div class="footer-section">
+                        <h5>Obserwuj nas</h5>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/WypozyczalniaMaszynLochow" target="_blank" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Wypożyczalnia maszyn i narzędzi Łochów. Wszelkie prawa zastrzeżone.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Lazy loading dla obrazów
+        document.addEventListener("DOMContentLoaded", function() {
+            const lazyImages = document.querySelectorAll("img.lazy-load");
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.add("loaded");
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(img => imageObserver.observe(img));
+        });
+
+        // Tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Komunikaty o błędach
+        function showAlert(message, type = 'success') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-custom`;
+            alertDiv.textContent = message;
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
         // Obsługa animacji ładowania
         document.addEventListener('DOMContentLoaded', function() {
             const loader = document.querySelector('.loader-wrapper');
@@ -798,50 +973,59 @@
             });
         });
 
+        // Obsługa wyszukiwania
         document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('searchForm');
             const searchInput = document.getElementById('searchInput');
             const searchResults = document.getElementById('searchResults');
-            let searchTimeout;
+            let timeoutId;
 
-            searchInput.addEventListener('input', function() {
-                clearTimeout(searchTimeout);
-                const query = this.value.trim();
-
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                
                 if (query.length < 2) {
-                    searchResults.style.display = 'none';
+                    searchResults.innerHTML = '<div class="p-3">Wprowadź co najmniej 2 znaki</div>';
+                    searchResults.style.display = 'block';
                     return;
                 }
 
-                searchTimeout = setTimeout(() => {
-                    fetch(`/wyszukaj/?q=${encodeURIComponent(query)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.results.length > 0) {
-                                searchResults.innerHTML = data.results.map(result => `
-                                    <a href="/maszyna/${result.id}/" class="search-result-item">
-                                        <img src="${result.zdjecie}" alt="${result.nazwa}">
-                                        <div class="search-result-info">
-                                            <h6 class="search-result-name">${result.nazwa}</h6>
-                                            <p class="search-result-category">${result.kategoria}</p>
-                                        </div>
-                                    </a>
-                                `).join('');
-                                searchResults.style.display = 'block';
-                            } else {
-                                searchResults.innerHTML = '<div class="search-result-item">Brak wyników</div>';
-                                searchResults.style.display = 'block';
-                            }
-                        });
-                }, 300);
+                fetch(`/wyszukaj/?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            searchResults.innerHTML = `<div class="p-3 text-danger">${data.error}</div>`;
+                        } else if (data.results.length === 0) {
+                            searchResults.innerHTML = '<div class="p-3">Brak wyników</div>';
+                        } else {
+                            searchResults.innerHTML = data.results.map(result => `
+                                <a href="/maszyna/${result.id}" class="search-result-item">
+                                    ${result.zdjecie ? `<img src="${result.zdjecie}" alt="${result.nazwa}">` : ''}
+                                    <div class="search-result-info">
+                                        <h6 class="search-result-name">${result.nazwa}</h6>
+                                        <p class="search-result-category">${result.kategoria}</p>
+                                        <p class="search-result-price">${result.cena} zł / doba</p>
+                                    </div>
+                                </a>
+                            `).join('');
+                        }
+                        searchResults.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Błąd wyszukiwania:', error);
+                        searchResults.innerHTML = '<div class="p-3 text-danger">Wystąpił błąd podczas wyszukiwania</div>';
+                        searchResults.style.display = 'block';
+                    });
             });
 
-            // Zamknij wyniki po kliknięciu poza wyszukiwarką
+            // Ukryj wyniki po kliknięciu poza wyszukiwarką
             document.addEventListener('click', function(e) {
-                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                if (!searchForm.contains(e.target)) {
                     searchResults.style.display = 'none';
                 }
             });
         });
     </script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html> 
