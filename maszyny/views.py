@@ -2,10 +2,17 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.db.models import Q
 from .models import Maszyna
+import locale
+
+# Ustawienie locale na polskie
+locale.setlocale(locale.LC_COLLATE, 'pl_PL.UTF-8')
+
+def sort_with_polish_chars(maszyny):
+    return sorted(maszyny, key=lambda x: locale.strxfrm(x.nazwa))
 
 def strona_glowna(request):
-    maszyny = Maszyna.objects.all().order_by('nazwa')
-    num_indicators = (maszyny.count() + 2) // 3  # Zaokrąglenie w górę
+    maszyny = sort_with_polish_chars(Maszyna.objects.all())
+    num_indicators = (len(maszyny) + 2) // 3  # Zaokrąglenie w górę
     
     # Liczniki maszyn dla każdej kategorii
     budowlane_count = Maszyna.objects.filter(kategoria='budowlane').count()
@@ -21,28 +28,28 @@ def strona_glowna(request):
     })
 
 def maszyny_budowlane(request):
-    maszyny = Maszyna.objects.filter(kategoria='budowlane').order_by('nazwa')
+    maszyny = sort_with_polish_chars(Maszyna.objects.filter(kategoria='budowlane'))
     return render(request, 'maszyny/maszyny_lista.html', {
         'maszyny': maszyny,
         'tytul': 'Maszyny budowlane'
     })
 
 def maszyny_ogrodnicze(request):
-    maszyny = Maszyna.objects.filter(kategoria='ogrodnicze').order_by('nazwa')
+    maszyny = sort_with_polish_chars(Maszyna.objects.filter(kategoria='ogrodnicze'))
     return render(request, 'maszyny/maszyny_lista.html', {
         'maszyny': maszyny,
         'tytul': 'Maszyny ogrodnicze'
     })
 
 def przyczepki(request):
-    maszyny = Maszyna.objects.filter(kategoria='przyczepki').order_by('nazwa')
+    maszyny = sort_with_polish_chars(Maszyna.objects.filter(kategoria='przyczepki'))
     return render(request, 'maszyny/maszyny_lista.html', {
         'maszyny': maszyny,
         'tytul': 'Przyczepki'
     })
 
 def cennik(request):
-    maszyny = Maszyna.objects.all().order_by('kategoria', 'nazwa')
+    maszyny = sort_with_polish_chars(Maszyna.objects.all())
     return render(request, 'maszyny/cennik.html', {
         'maszyny': maszyny
     })
