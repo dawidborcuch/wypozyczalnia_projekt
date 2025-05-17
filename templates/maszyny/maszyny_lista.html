@@ -10,7 +10,7 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Sortuj według
                 </button>
                 <ul class="dropdown-menu">
@@ -67,6 +67,17 @@
     .dropdown-item:hover {
         background-color: var(--primary-color);
         color: white;
+    }
+
+    /* Wymuszam niebieski kolor tła i białą czcionkę dla przycisku sortowania */
+    .btn-primary.dropdown-toggle {
+        background-color: #007bff !important;
+        color: #fff !important;
+        border: none;
+    }
+    .btn-primary.dropdown-toggle:focus, .btn-primary.dropdown-toggle:active {
+        background-color: #0056b3 !important;
+        color: #fff !important;
     }
 </style>
 {% endblock %} 

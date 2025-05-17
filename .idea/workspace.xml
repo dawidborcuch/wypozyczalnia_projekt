@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ zmiana koloru cen w kategoriach maszyn z czarnego na niebieski">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maszyny/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/maszyny/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maszyny/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/maszyny/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maszyny/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/maszyny/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maszyny/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/maszyny/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/maszyny/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/maszyny/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/maszyny/maszyna_szczegoly.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/maszyny/maszyna_szczegoly.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/maszyny/maszyny_lista.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/maszyny/maszyny_lista.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wypozyczalnia/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/wypozyczalnia/settings.py" afterDir="false" />
-    </list>
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ zmiana koloru cen w kategoriach maszyn z czarnego na niebieski" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
