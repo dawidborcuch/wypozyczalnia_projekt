@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ dop">
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ dopieszczenie wyszukiwarki oraz głównego menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747417750894</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="+ dopieszczenie wyszukiwarki oraz głównego menu">
+      <option name="closed" value="true" />
+      <created>1747499602344</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1747499602344</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,6 +161,7 @@
     <MESSAGE value="+ sekcja 'o nas'" />
     <MESSAGE value="+ Favicon" />
     <MESSAGE value="+ dop" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ dop" />
+    <MESSAGE value="+ dopieszczenie wyszukiwarki oraz głównego menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ dopieszczenie wyszukiwarki oraz głównego menu" />
   </component>
 </project>
