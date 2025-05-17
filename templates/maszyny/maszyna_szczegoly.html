@@ -13,7 +13,7 @@
             <div class="card shadow-lg mt-4">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Film prezentacyjny</h5>
-                    <div class="ratio ratio-16x9">
+                    <div class="ratio ratio-4x3">
                         <iframe src="{{ maszyna.get_youtube_embed_url }}" 
                                 title="YouTube video" 
                                 allowfullscreen></iframe>
@@ -24,7 +24,7 @@
         </div>
         <div class="col-md-6">
             <h1 class="mb-4">{{ maszyna.nazwa }}</h1>
-            <p class="lead">{{ maszyna.opis }}</p>
+            <p class="lead fw-bold">{{ maszyna.opis }}</p>
             
             <!-- Przyciski udostępniania -->
             <div class="share-buttons mb-4">
