@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ dopieszczenie wyszukiwarki oraz głównego menu">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ cz2 oferty" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -140,7 +138,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747499602344</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="+ cz1 oferty oraz poprawione sortowanie maszyn (z PL znakami)">
+      <option name="closed" value="true" />
+      <created>1747509696023</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1747509696023</updated>
+    </task>
+    <task id="LOCAL-00013" summary="+ cz2 oferty">
+      <option name="closed" value="true" />
+      <created>1747511425532</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1747511425532</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -162,6 +176,8 @@
     <MESSAGE value="+ Favicon" />
     <MESSAGE value="+ dop" />
     <MESSAGE value="+ dopieszczenie wyszukiwarki oraz głównego menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ dopieszczenie wyszukiwarki oraz głównego menu" />
+    <MESSAGE value="+ cz1 oferty oraz poprawione sortowanie maszyn (z PL znakami)" />
+    <MESSAGE value="+ cz2 oferty" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ cz2 oferty" />
   </component>
 </project>

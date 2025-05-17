@@ -16,7 +16,7 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ maszyna.nazwa }}</h5>
-                    <p class="card-text"><strong>Cena: {{ maszyna.cena }} zł/doba</strong></p>
+                    <p class="card-text"><strong>Cena: <span style="color: var(--primary-color);">{{ maszyna.cena }} zł/doba</span></strong></p>
                     <div class="text-end">
                         <a href="{% url 'maszyna_szczegoly' maszyna.id %}" class="btn btn-outline-primary">Szczegóły</a>
                     </div>
