@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ opis pogrubiony oraz zmniejszone okno wideo YT" />
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ większa czcionka do sekcji Kontakt w sprawie wynajmu" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747521420326</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="+ większa czcionka do sekcji Kontakt w sprawie wynajmu">
+      <option name="closed" value="true" />
+      <created>1747521569401</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1747521569401</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,6 +222,7 @@
     <MESSAGE value="+ dopieszczenie końcowe" />
     <MESSAGE value="+ dopieszczenie końcowe vol2" />
     <MESSAGE value="+ opis pogrubiony oraz zmniejszone okno wideo YT" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ opis pogrubiony oraz zmniejszone okno wideo YT" />
+    <MESSAGE value="+ większa czcionka do sekcji Kontakt w sprawie wynajmu" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ większa czcionka do sekcji Kontakt w sprawie wynajmu" />
   </component>
 </project>
