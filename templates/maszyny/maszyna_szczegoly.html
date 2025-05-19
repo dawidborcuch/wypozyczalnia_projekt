@@ -23,8 +23,12 @@
             {% endif %}
         </div>
         <div class="col-md-6">
-            <h1 class="mb-4">{{ maszyna.nazwa }}</h1>
-            <p class="lead fw-bold">{{ maszyna.opis }}</p>
+            <div class="card shadow-lg bg-white bg-opacity-90 mb-4">
+                <div class="card-body">
+                    <h1 class="mb-4">{{ maszyna.nazwa }}</h1>
+                    <p class="lead">{{ maszyna.opis }}</p>
+                </div>
+            </div>
             
             <!-- Przyciski udostępniania -->
             <div class="share-buttons mb-4">
@@ -116,7 +120,6 @@
         background-color: #3b5998;
         color: white;
     }
-
     
     /* Style dla przycisku "Do góry" */
     .scroll-to-top {
