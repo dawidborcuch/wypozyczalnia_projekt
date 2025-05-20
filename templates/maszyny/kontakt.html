@@ -23,8 +23,8 @@
     .contact-info-item {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 1.5rem;
-        padding: 1rem;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
         border-radius: 10px;
         transition: all 0.3s ease;
     }
@@ -142,11 +142,33 @@
         height: 300px;
         border: none;
     }
+    
+    @media (max-width: 768px) {
+        .contact-info-item {
+            margin-bottom: 0.25rem;
+            padding: 0.25rem;
+        }
+        
+        .contact-info-item i {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            width: 30px;
+        }
+        
+        .contact-info-item .info-label {
+            font-size: 0.9rem;
+            margin-bottom: 0.1rem;
+        }
+        
+        .contact-info-item .info-value {
+            font-size: 0.9rem;
+        }
+    }
 </style>
 
 <div class="contact-section">
     <div class="container">
-        <h1 class="section-title">Kontakt</h1>
+        <h1 class="section-title text-center">Kontakt</h1>
         
         <div class="row">
             <div class="col-md-6 mb-4">
@@ -166,7 +188,7 @@
                             <i class="fas fa-envelope"></i>
                             <div class="info-content">
                                 <div class="info-label">Email</div>
-                                <div class="info-value">biuro@wypozyczalnia-lochow.pl</div>
+                                <div class="info-value">kontakt@wypozyczalnia-lochow.pl</div>
                             </div>
                         </div>
                         
