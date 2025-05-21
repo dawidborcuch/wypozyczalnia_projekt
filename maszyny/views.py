@@ -8,7 +8,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
-from .models import Maszyna
+from .models import Maszyna, Announcement
 import locale
 import re
 from datetime import datetime, timedelta
@@ -42,6 +42,9 @@ def get_cached_maszyny(category=None):
     
     return maszyny
 
+def get_active_announcement():
+    return Announcement.objects.filter(is_active=True).order_by('-created_at').first()
+
 @csrf_protect
 def index(request):
     maszyny = get_cached_maszyny()
@@ -63,12 +66,15 @@ def index(request):
         przyczepki_count = Maszyna.objects.filter(kategoria='przyczepki').count()
         cache.set('przyczepki_count', przyczepki_count, CACHE_TTL)
     
+    active_announcement = get_active_announcement()
+    
     return render(request, 'maszyny/strona_glowna.html', {
         'maszyny': maszyny,
         'num_indicators': num_indicators,
         'budowlane_count': budowlane_count,
         'ogrodnicze_count': ogrodnicze_count,
-        'przyczepki_count': przyczepki_count
+        'przyczepki_count': przyczepki_count,
+        'active_announcement': active_announcement
     })
 
 @csrf_protect

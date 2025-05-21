@@ -35,3 +35,18 @@ class Maszyna(models.Model):
             video_id = self.link_youtube.split('v=')[-1]
             return f'https://www.youtube.com/embed/{video_id}'
         return None 
+
+class Announcement(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Tytuł")
+    content = models.TextField(verbose_name="Treść")
+    is_active = models.BooleanField(default=True, verbose_name="Aktywny")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Data utworzenia")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Data aktualizacji")
+
+    class Meta:
+        verbose_name = "Komunikat"
+        verbose_name_plural = "Komunikaty"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.title 

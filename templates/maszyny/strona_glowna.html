@@ -307,7 +307,49 @@
             padding: 2rem 0 !important;
         }
     }
+
+    .announcement-section {
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        padding: 1rem;
+    }
+
+    .announcement {
+        background: #ffe066;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        border-left: 4px solid #ffc300;
+        transition: transform 0.3s ease;
+    }
+
+    .announcement:hover {
+        transform: translateY(-5px);
+    }
+
+    .announcement h3 {
+        color: #007bff;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .announcement-content {
+        color: #333;
+        line-height: 1.6;
+    }
 </style>
+
+{% if active_announcement %}
+<div class="announcement-section">
+    <div class="announcement">
+        <h3>{{ active_announcement.title }}</h3>
+        <div class="announcement-content">
+            {{ active_announcement.content|linebreaks }}
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div class="container px-2">
     <h2 class="text-center section-title category-title">Wybierz kategorię</h2>
