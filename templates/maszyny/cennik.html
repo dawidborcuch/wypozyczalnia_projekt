@@ -1,9 +1,13 @@
 {% extends 'maszyny/base.html' %}
+{% load static %}
 
 {% block title %}Cennik - Wypożyczalnia Maszyn{% endblock %}
 
 {% block content %}
 <style>
+    html, body, .container, .row, .col-md-4, .price-card, .table-responsive {
+        overflow-x: hidden;
+    }
     .price-section {
         padding: 2rem 0;
     }
@@ -16,7 +20,7 @@
         height: 100%;
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(5px);
-        max-width: 80%;
+        width: 100%;
         margin: 0 auto;
     }
     
@@ -106,105 +110,107 @@
     }
 </style>
 
-<h1 class="section-title text-center">Cennik</h1>
+<div class="container">
+    <h1 class="section-title text-center">Cennik</h1>
 
-<div class="row justify-content-center g-2">
-    <div class="col-md-4">
-        <div class="price-card">
-            <div class="price-header">
-                <i class="fas fa-truck-monster"></i>
-                <h2>Maszyny budowlane</h2>
-            </div>
-            <div class="table-responsive">
-                <table class="table price-table">
-                    <thead>
-                        <tr>
-                            <th>Nazwa</th>
-                            <th class="text-end">Cena (zł/doba)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for maszyna in maszyny %}
-                            {% if maszyna.kategoria == 'budowlane' %}
+    <div class="row justify-content-center g-2">
+        <div class="col-md-4">
+            <div class="price-card">
+                <div class="price-header">
+                    <i class="fas fa-truck-monster"></i>
+                    <h2>Maszyny budowlane</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="table price-table">
+                        <thead>
                             <tr>
-                                <td>{{ maszyna.nazwa }}</td>
-                                <td class="text-end price">
-                                    <span class="h5 text-primary mb-0">{{ maszyna.cena }} zł</span>
-                                </td>
+                                <th>Nazwa</th>
+                                <th class="text-end">Cena (zł/doba)</th>
                             </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% for maszyna in maszyny %}
+                                {% if maszyna.kategoria == 'budowlane' %}
+                                <tr>
+                                    <td>{{ maszyna.nazwa }}</td>
+                                    <td class="text-end price">
+                                        <span class="h5 text-primary mb-0">{{ maszyna.cena }} zł</span>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="price-card">
+                <div class="price-header">
+                    <i class="fas fa-leaf"></i>
+                    <h2>Maszyny ogrodnicze</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="table price-table">
+                        <thead>
+                            <tr>
+                                <th>Nazwa</th>
+                                <th class="text-end">Cena (zł/doba)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for maszyna in maszyny %}
+                                {% if maszyna.kategoria == 'ogrodnicze' %}
+                                <tr>
+                                    <td>{{ maszyna.nazwa }}</td>
+                                    <td class="text-end price">
+                                        <span class="h5 text-primary mb-0">{{ maszyna.cena }} zł</span>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="price-card">
+                <div class="price-header">
+                    <i class="fas fa-truck"></i>
+                    <h2>Przyczepki</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="table price-table">
+                        <thead>
+                            <tr>
+                                <th>Nazwa</th>
+                                <th class="text-end">Cena (zł/doba)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for maszyna in maszyny %}
+                                {% if maszyna.kategoria == 'przyczepki' %}
+                                <tr>
+                                    <td>{{ maszyna.nazwa }}</td>
+                                    <td class="text-end price">
+                                        <span class="h5 text-primary mb-0">{{ maszyna.cena }} zł</span>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="price-card">
-            <div class="price-header">
-                <i class="fas fa-leaf"></i>
-                <h2>Maszyny ogrodnicze</h2>
-            </div>
-            <div class="table-responsive">
-                <table class="table price-table">
-                    <thead>
-                        <tr>
-                            <th>Nazwa</th>
-                            <th class="text-end">Cena (zł/doba)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for maszyna in maszyny %}
-                            {% if maszyna.kategoria == 'ogrodnicze' %}
-                            <tr>
-                                <td>{{ maszyna.nazwa }}</td>
-                                <td class="text-end price">
-                                    <span class="h5 text-primary mb-0">{{ maszyna.cena }} zł</span>
-                                </td>
-                            </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="price-note">
+        <p><i class="fas fa-info-circle"></i> Ceny podane są za dobę. Przy dłuższym wynajmie możliwa jest negocjacja cen.</p>
+        <p><i class="fas fa-phone"></i> W celu uzyskania szczegółowych informacji, prosimy o kontakt telefoniczny: 789 690 907</p>
     </div>
-
-    <div class="col-md-4">
-        <div class="price-card">
-            <div class="price-header">
-                <i class="fas fa-truck"></i>
-                <h2>Przyczepki</h2>
-            </div>
-            <div class="table-responsive">
-                <table class="table price-table">
-                    <thead>
-                        <tr>
-                            <th>Nazwa</th>
-                            <th class="text-end">Cena (zł/doba)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for maszyna in maszyny %}
-                            {% if maszyna.kategoria == 'przyczepki' %}
-                            <tr>
-                                <td>{{ maszyna.nazwa }}</td>
-                                <td class="text-end price">
-                                    <span class="h5 text-primary mb-0">{{ maszyna.cena }} zł</span>
-                                </td>
-                            </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="price-note">
-    <p><i class="fas fa-info-circle"></i> Ceny podane są za dobę. Przy dłuższym wynajmie możliwa jest negocjacja cen.</p>
-    <p><i class="fas fa-phone"></i> W celu uzyskania szczegółowych informacji, prosimy o kontakt telefoniczny: 789 690 907</p>
 </div>
 {% endblock %} 
