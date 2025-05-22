@@ -7,7 +7,14 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'wypozyczalnia-lochow.pl',
+    'www.wypozyczalnia-lochow.pl',
+    '54.38.54.203',
+    '.wypozyczalnia-lochow.pl',
+    'localhost',
+    '127.0.0.1'
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
