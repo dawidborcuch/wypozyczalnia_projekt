@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ zmiana w menu głównym na karcie maszyny ogrodnicze">
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ odkurzacz do liści">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -244,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748419102469</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="+ odkurzacz do liści">
+      <option name="closed" value="true" />
+      <created>1748520108949</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1748520108949</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -279,6 +287,7 @@
     <MESSAGE value="+ ALLOWED_HOSTS" />
     <MESSAGE value="+ zmiana w menu głównym" />
     <MESSAGE value="+ zmiana w menu głównym na karcie maszyny ogrodnicze" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ zmiana w menu głównym na karcie maszyny ogrodnicze" />
+    <MESSAGE value="+ odkurzacz do liści" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ odkurzacz do liści" />
   </component>
 </project>
