@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ przyczepa Neptun">
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="zmiana ceny walec ogrodowy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -276,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751454423162</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="zmiana ceny walec ogrodowy">
+      <option name="closed" value="true" />
+      <created>1755165593761</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1755165593761</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -315,6 +323,7 @@
     <MESSAGE value="+ wibrator do betonu" />
     <MESSAGE value="+ kolejna sztuka wiertnica glebowa" />
     <MESSAGE value="+ kompresor olejowy" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ kompresor olejowy" />
+    <MESSAGE value="zmiana ceny walec ogrodowy" />
+    <option name="LAST_COMMIT_MESSAGE" value="zmiana ceny walec ogrodowy" />
   </component>
 </project>
