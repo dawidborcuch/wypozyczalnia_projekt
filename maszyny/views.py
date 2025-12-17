@@ -18,7 +18,12 @@ import logging
 from django.utils.html import strip_tags
 
 # Ustawienie locale na polskie
-locale.setlocale(locale.LC_COLLATE, 'pl_PL.UTF-8')
+try:
+    locale.setlocale(locale.LC_COLLATE, 'pl_PL.UTF-8')
+except locale.Error:
+    # Na części serwerów (np. Ubuntu bez doinstalowanych locale) ta wartość może nie istnieć.
+    # W takim wypadku sortowanie będzie działać, ale bez reguł dla polskich znaków.
+    pass
 
 # Cache timeout
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
@@ -28,43 +33,31 @@ logger = logging.getLogger(__name__)
 def sort_with_polish_chars(maszyny):
     return sorted(maszyny, key=lambda x: locale.strxfrm(x.nazwa))
 
-def get_cached_maszyny(category=None):
-    cache_key = f'maszyny_{category}' if category else 'maszyny_all'
-    maszyny = cache.get(cache_key)
-    
-    if maszyny is None:
-        if category:
-            maszyny = list(Maszyna.objects.filter(kategoria=category))
-        else:
-            maszyny = list(Maszyna.objects.all())
-        maszyny = sort_with_polish_chars(maszyny)
-        cache.set(cache_key, maszyny, CACHE_TTL)
-    
-    return maszyny
+def get_maszyny(category=None):
+    """
+    Celowo BEZ cache:
+    - na produkcji cache typu LocMemCache nie jest współdzielony między procesami gunicorna,
+      więc potrafi dawać "losowo" nieaktualne liczniki/listy po dodaniu maszyny w adminie.
+    - priorytetem jest aktualność danych (np. po dodaniu nowej maszyny).
+    """
+    if category:
+        maszyny = list(Maszyna.objects.filter(kategoria=category))
+    else:
+        maszyny = list(Maszyna.objects.all())
+    return sort_with_polish_chars(maszyny)
 
 def get_active_announcement():
     return Announcement.objects.filter(is_active=True).order_by('-created_at').first()
 
 @csrf_protect
 def index(request):
-    maszyny = get_cached_maszyny()
+    maszyny = get_maszyny()
     num_indicators = (len(maszyny) + 2) // 3
     
     # Liczniki maszyn dla każdej kategorii
-    budowlane_count = cache.get('budowlane_count')
-    if budowlane_count is None:
-        budowlane_count = Maszyna.objects.filter(kategoria='budowlane').count()
-        cache.set('budowlane_count', budowlane_count, CACHE_TTL)
-    
-    ogrodnicze_count = cache.get('ogrodnicze_count')
-    if ogrodnicze_count is None:
-        ogrodnicze_count = Maszyna.objects.filter(kategoria='ogrodnicze').count()
-        cache.set('ogrodnicze_count', ogrodnicze_count, CACHE_TTL)
-    
-    przyczepki_count = cache.get('przyczepki_count')
-    if przyczepki_count is None:
-        przyczepki_count = Maszyna.objects.filter(kategoria='przyczepki').count()
-        cache.set('przyczepki_count', przyczepki_count, CACHE_TTL)
+    budowlane_count = Maszyna.objects.filter(kategoria='budowlane').count()
+    ogrodnicze_count = Maszyna.objects.filter(kategoria='ogrodnicze').count()
+    przyczepki_count = Maszyna.objects.filter(kategoria='przyczepki').count()
     
     active_announcement = get_active_announcement()
     
@@ -154,7 +147,7 @@ def przyczepki(request):
 
 @csrf_protect
 def cennik(request):
-    maszyny = get_cached_maszyny()
+    maszyny = get_maszyny()
     return render(request, 'maszyny/cennik.html', {
         'maszyny': maszyny
     })

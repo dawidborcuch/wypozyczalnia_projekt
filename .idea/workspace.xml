@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ agregat tagred 3500w" />
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ niwelator" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -298,7 +298,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762961682070</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="+ niwelator">
+      <option name="closed" value="true" />
+      <created>1765986770154</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1765986770154</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -313,7 +321,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="+ wyszukiwanie z PL oraz bez PL znaków" />
     <MESSAGE value="+ sekcja 'o nas'" />
     <MESSAGE value="+ Favicon" />
     <MESSAGE value="+ dop" />
@@ -338,6 +345,7 @@
     <MESSAGE value="zmiana ceny walec ogrodowy" />
     <MESSAGE value="+ zag 90kg&#10;- glebogryzarka faworyt" />
     <MESSAGE value="+ agregat tagred 3500w" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ agregat tagred 3500w" />
+    <MESSAGE value="+ niwelator" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ niwelator" />
   </component>
 </project>
