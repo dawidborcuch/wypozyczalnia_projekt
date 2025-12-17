@@ -30,6 +30,25 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 logger = logging.getLogger(__name__)
 
+def polish_maszyna_word(count: int) -> str:
+    """
+    Poprawna odmiana dla "maszyna":
+    - 1 -> "maszyna"
+    - 2-4 (ale nie 12-14) -> "maszyny"
+    - pozostałe (w tym 0) -> "maszyn"
+    Przykłady: 0 maszyn, 1 maszyna, 2 maszyny, 4 maszyny, 5 maszyn, 12 maszyn, 14 maszyn, 22 maszyny.
+    """
+    try:
+        n = abs(int(count))
+    except (TypeError, ValueError):
+        return "maszyn"
+
+    if n == 1:
+        return "maszyna"
+    if (n % 10 in (2, 3, 4)) and (n % 100 not in (12, 13, 14)):
+        return "maszyny"
+    return "maszyn"
+
 def sort_with_polish_chars(maszyny):
     return sorted(maszyny, key=lambda x: locale.strxfrm(x.nazwa))
 
@@ -67,6 +86,9 @@ def index(request):
         'budowlane_count': budowlane_count,
         'ogrodnicze_count': ogrodnicze_count,
         'przyczepki_count': przyczepki_count,
+        'budowlane_word': polish_maszyna_word(budowlane_count),
+        'ogrodnicze_word': polish_maszyna_word(ogrodnicze_count),
+        'przyczepki_word': polish_maszyna_word(przyczepki_count),
         'active_announcement': active_announcement
     })
 
