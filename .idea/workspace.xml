@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ zag 90kg&#10;- glebogryzarka faworyt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ agregat tagred 3500w" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -292,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758790129478</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="+ agregat tagred 3500w">
+      <option name="closed" value="true" />
+      <created>1762961682070</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1762961682070</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -307,7 +313,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="+ wyszukiwarka maszyn" />
     <MESSAGE value="+ wyszukiwanie z PL oraz bez PL znaków" />
     <MESSAGE value="+ sekcja 'o nas'" />
     <MESSAGE value="+ Favicon" />
@@ -332,6 +337,7 @@
     <MESSAGE value="+ kompresor olejowy" />
     <MESSAGE value="zmiana ceny walec ogrodowy" />
     <MESSAGE value="+ zag 90kg&#10;- glebogryzarka faworyt" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ zag 90kg&#10;- glebogryzarka faworyt" />
+    <MESSAGE value="+ agregat tagred 3500w" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ agregat tagred 3500w" />
   </component>
 </project>
