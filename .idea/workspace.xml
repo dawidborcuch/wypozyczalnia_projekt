@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ YT" />
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ CEDRUS" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -354,7 +354,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768397480548</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="+ CEDRUS">
+      <option name="closed" value="true" />
+      <created>1768398303550</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1768398303550</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -369,7 +377,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="+ dop" />
     <MESSAGE value="+ dopieszczenie wyszukiwarki oraz głównego menu" />
     <MESSAGE value="+ cz1 oferty oraz poprawione sortowanie maszyn (z PL znakami)" />
     <MESSAGE value="+ cz2 oferty" />
@@ -394,6 +401,7 @@
     <MESSAGE value="+ niwelator" />
     <MESSAGE value="+ pila do betonu" />
     <MESSAGE value="+ YT" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ YT" />
+    <MESSAGE value="+ CEDRUS" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ CEDRUS" />
   </component>
 </project>
