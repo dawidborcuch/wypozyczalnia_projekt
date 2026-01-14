@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ niwelator" />
+    <list default="true" id="4b8b7ede-9b1e-4434-b3a9-033ec94625cc" name="Changes" comment="+ pila do betonu">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -330,7 +332,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766061276007</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="+ pila do betonu">
+      <option name="closed" value="true" />
+      <created>1766881451864</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1766881451864</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -345,7 +355,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="+ sekcja 'o nas'" />
     <MESSAGE value="+ Favicon" />
     <MESSAGE value="+ dop" />
     <MESSAGE value="+ dopieszczenie wyszukiwarki oraz głównego menu" />
@@ -370,6 +379,7 @@
     <MESSAGE value="+ zag 90kg&#10;- glebogryzarka faworyt" />
     <MESSAGE value="+ agregat tagred 3500w" />
     <MESSAGE value="+ niwelator" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ niwelator" />
+    <MESSAGE value="+ pila do betonu" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ pila do betonu" />
   </component>
 </project>

@@ -40,24 +40,34 @@ class Maszyna(models.Model):
         # https://youtu.be/VIDEO_ID
         # https://www.youtube.com/embed/VIDEO_ID
         # https://youtube.com/watch?v=VIDEO_ID&list=...
+        # https://m.youtube.com/watch?v=VIDEO_ID
         
         video_id = None
         
-        # Format: youtube.com/watch?v=VIDEO_ID lub youtu.be/VIDEO_ID
+        # Usuń białe znaki
+        url = self.link_youtube.strip()
+        
+        # Różne wzorce dla różnych formatów URL YouTube
         patterns = [
-            r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})',
-            r'youtube\.com\/watch\?.*v=([a-zA-Z0-9_-]{11})',
+            # youtu.be/VIDEO_ID
+            r'youtu\.be\/([a-zA-Z0-9_-]{11})',
+            # youtube.com/watch?v=VIDEO_ID lub youtube.com/embed/VIDEO_ID
+            r'(?:youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})',
+            # youtube.com/watch?.*v=VIDEO_ID (z dodatkowymi parametrami)
+            r'youtube\.com\/watch\?.*[&?]v=([a-zA-Z0-9_-]{11})',
+            # m.youtube.com/watch?v=VIDEO_ID
+            r'm\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})',
         ]
         
         for pattern in patterns:
-            match = re.search(pattern, self.link_youtube)
+            match = re.search(pattern, url)
             if match:
                 video_id = match.group(1)
                 break
         
-        if video_id:
+        if video_id and len(video_id) == 11:
             # Zwróć embed URL z parametrami dla lepszej kompatybilności
-            return f'https://www.youtube.com/embed/{video_id}?rel=0&modestbranding=1'
+            return f'https://www.youtube.com/embed/{video_id}?rel=0&modestbranding=1&enablejsapi=1'
         
         return None 
 

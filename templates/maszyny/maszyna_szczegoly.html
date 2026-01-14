@@ -14,9 +14,17 @@
                 <div class="card-body">
                     <h5 class="card-title mb-3">Film prezentacyjny</h5>
                     <div class="ratio ratio-4x3">
+                        {% if maszyna.get_youtube_embed_url %}
                         <iframe src="{{ maszyna.get_youtube_embed_url }}" 
                                 title="YouTube video" 
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                 allowfullscreen></iframe>
+                        {% else %}
+                        <div class="alert alert-warning">
+                            Nieprawidłowy link do filmu YouTube. Sprawdź format URL w panelu administracyjnym.
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
