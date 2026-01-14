@@ -30,10 +30,35 @@ class Maszyna(models.Model):
         return reverse('maszyna_szczegoly', args=[str(self.id)])
 
     def get_youtube_embed_url(self):
-        if self.link_youtube:
-            # Konwertuj URL YouTube na URL embed
-            video_id = self.link_youtube.split('v=')[-1]
-            return f'https://www.youtube.com/embed/{video_id}'
+        if not self.link_youtube:
+            return None
+        
+        import re
+        
+        # Różne formaty URL YouTube:
+        # https://www.youtube.com/watch?v=VIDEO_ID
+        # https://youtu.be/VIDEO_ID
+        # https://www.youtube.com/embed/VIDEO_ID
+        # https://youtube.com/watch?v=VIDEO_ID&list=...
+        
+        video_id = None
+        
+        # Format: youtube.com/watch?v=VIDEO_ID lub youtu.be/VIDEO_ID
+        patterns = [
+            r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})',
+            r'youtube\.com\/watch\?.*v=([a-zA-Z0-9_-]{11})',
+        ]
+        
+        for pattern in patterns:
+            match = re.search(pattern, self.link_youtube)
+            if match:
+                video_id = match.group(1)
+                break
+        
+        if video_id:
+            # Zwróć embed URL z parametrami dla lepszej kompatybilności
+            return f'https://www.youtube.com/embed/{video_id}?rel=0&modestbranding=1'
+        
         return None 
 
 class Announcement(models.Model):
