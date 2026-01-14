@@ -253,6 +253,54 @@
         opacity: 0.5;
     }
 
+    /* Style dla sekcji logo Cedrus */
+    .cedrus-logo-section {
+        background: transparent;
+        border-radius: 20px;
+        padding: 3rem 2rem;
+        margin: 2rem 0;
+    }
+
+    .cedrus-logo-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .cedrus-logo {
+        max-width: 400px;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        transition: transform 0.3s ease;
+    }
+
+    .cedrus-logo:hover {
+        transform: scale(1.05);
+    }
+
+    .cedrus-description {
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .cedrus-logo-section {
+            padding: 2rem 1rem;
+        }
+
+        .cedrus-logo {
+            max-width: 280px;
+        }
+
+        .cedrus-description {
+            font-size: 1rem;
+        }
+    }
+
     @media (max-width: 768px) {
         .container {
             padding-left: 15px !important;
@@ -441,28 +489,14 @@
 
     <div class="row mb-5">
         <div class="col-12">
-            <h2 class="text-center section-title">Nasze maszyny i narzędzia</h2>
-            <div class="carousel-container">
-                <div class="carousel-track" style="display: flex; transition: transform 0.5s ease;">
-                    {% for maszyna in maszyny %}
-                        <div class="carousel-slide" style="flex: 0 0 33.333%; padding: 0 15px;">
-                            <a href="{% url 'maszyna_szczegoly' maszyna.id %}" style="text-decoration: none; color: inherit;">
-                                <img src="{{ maszyna.zdjecie.url }}" class="d-block w-100" alt="{{ maszyna.nazwa }}" style="height: 300px; object-fit: contain; border-radius: 10px; background-color: #f8f9fa;">
-                            </a>
-                        </div>
-                    {% endfor %}
+            <h2 class="text-center section-title">Polecamy maszyny od producenta Cedrus</h2>
+            <div class="cedrus-logo-section text-center py-5">
+                <div class="cedrus-logo-wrapper">
+                    <img src="{% static 'maszyny/cedrus-logo.png' %}" alt="Cedrus - Producent maszyn" class="cedrus-logo">
                 </div>
-                <button class="carousel-control-prev" type="button" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 2; border: none; color: #FFD700; padding: 15px; font-size: 24px;">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="carousel-control-next" type="button" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 2; border: none; color: #FFD700; padding: 15px; font-size: 24px;">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-                <div class="carousel-indicators">
-                    {% for i in "x"|rjust:num_indicators %}
-                        <div class="carousel-indicator {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></div>
-                    {% endfor %}
-                </div>
+                <p class="cedrus-description mt-4 lead text-muted fw-bold">
+                    Chcąc zaoferować najwyższej jakości maszyny i narzędzia do prac budowlanych i ogrodniczych, polecamy markę CEDRUS
+                </p>
             </div>
         </div>
     </div>
@@ -474,99 +508,4 @@
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const track = document.querySelector('.carousel-track');
-    const slides = document.querySelectorAll('.carousel-slide');
-    const prevButton = document.querySelector('.carousel-control-prev');
-    const nextButton = document.querySelector('.carousel-control-next');
-    const indicators = document.querySelectorAll('.carousel-indicator');
-    let currentIndex = 0;
-    const slideWidth = 33.333;
-    let isCarouselAnimating = false;
-
-    function updateSlidePosition() {
-        if (isCarouselAnimating) return;
-        isCarouselAnimating = true;
-        track.style.transition = 'transform 0.5s ease';
-        track.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
-        
-        // Aktualizuj wskaźniki
-        indicators.forEach((indicator, index) => {
-            indicator.classList.toggle('active', index === Math.floor(currentIndex / 3));
-        });
-
-        setTimeout(() => {
-            isCarouselAnimating = false;
-        }, 500);
-    }
-
-    function goToSlide(index) {
-        if (index < 0) {
-            currentIndex = slides.length - 3;
-        } else if (index > slides.length - 3) {
-            currentIndex = 0;
-        } else {
-            currentIndex = index;
-        }
-        updateSlidePosition();
-    }
-
-    prevButton.addEventListener('click', () => {
-        goToSlide(currentIndex - 3);
-    });
-
-    nextButton.addEventListener('click', () => {
-        goToSlide(currentIndex + 3);
-    });
-
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            currentIndex = index * 3;
-            updateSlidePosition();
-        });
-    });
-
-    // Automatyczne przesuwanie
-    let autoplayInterval = setInterval(() => {
-        goToSlide(currentIndex + 3);
-    }, 3000);
-
-    // Zatrzymaj autoplay przy najechaniu myszką
-    track.addEventListener('mouseenter', () => {
-        clearInterval(autoplayInterval);
-    });
-
-    // Wznów autoplay po opuszczeniu myszką
-    track.addEventListener('mouseleave', () => {
-        autoplayInterval = setInterval(() => {
-            goToSlide(currentIndex + 3);
-        }, 3000);
-    });
-
-    // Obsługa dotyku dla urządzeń mobilnych
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    track.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-
-    track.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        if (touchEndX < touchStartX - swipeThreshold) {
-            // Przesunięcie w lewo
-            goToSlide(currentIndex + 3);
-        } else if (touchEndX > touchStartX + swipeThreshold) {
-            // Przesunięcie w prawo
-            goToSlide(currentIndex - 3);
-        }
-    }
-});
-</script>
 {% endblock %} 
