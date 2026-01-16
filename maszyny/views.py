@@ -50,21 +50,25 @@ def index(request):
     maszyny = get_cached_maszyny()
     num_indicators = (len(maszyny) + 2) // 3
     
-    # Liczniki maszyn dla każdej kategorii
-    budowlane_count = cache.get('budowlane_count')
-    if budowlane_count is None:
-        budowlane_count = Maszyna.objects.filter(kategoria='budowlane').count()
-        cache.set('budowlane_count', budowlane_count, CACHE_TTL)
+    # Liczniki maszyn dla każdej kategorii (bez cache - zawsze aktualne)
+    budowlane_count = Maszyna.objects.filter(kategoria='budowlane').count()
+    ogrodnicze_count = Maszyna.objects.filter(kategoria='ogrodnicze').count()
+    przyczepki_count = Maszyna.objects.filter(kategoria='przyczepki').count()
     
-    ogrodnicze_count = cache.get('ogrodnicze_count')
-    if ogrodnicze_count is None:
-        ogrodnicze_count = Maszyna.objects.filter(kategoria='ogrodnicze').count()
-        cache.set('ogrodnicze_count', ogrodnicze_count, CACHE_TTL)
-    
-    przyczepki_count = cache.get('przyczepki_count')
-    if przyczepki_count is None:
-        przyczepki_count = Maszyna.objects.filter(kategoria='przyczepki').count()
-        cache.set('przyczepki_count', przyczepki_count, CACHE_TTL)
+    # Funkcja do poprawnej odmiany słowa "maszyna"
+    def polish_maszyna_word(count):
+        if count == 0:
+            return "maszyn"
+        elif count == 1:
+            return "maszyna"
+        elif count >= 2 and count <= 4:
+            return "maszyny"
+        elif count >= 5 and count <= 21:
+            return "maszyn"
+        elif count % 10 >= 2 and count % 10 <= 4 and (count % 100 < 10 or count % 100 >= 20):
+            return "maszyny"
+        else:
+            return "maszyn"
     
     active_announcement = get_active_announcement()
     
@@ -74,6 +78,9 @@ def index(request):
         'budowlane_count': budowlane_count,
         'ogrodnicze_count': ogrodnicze_count,
         'przyczepki_count': przyczepki_count,
+        'budowlane_word': polish_maszyna_word(budowlane_count),
+        'ogrodnicze_word': polish_maszyna_word(ogrodnicze_count),
+        'przyczepki_word': polish_maszyna_word(przyczepki_count),
         'active_announcement': active_announcement
     })
 
